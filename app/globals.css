@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+:root { --paper:#f3f0e7; --ink:#17352d; --muted:#6f776f; --line:#cdd0c4; --orange:#e45b3d; --gold:#d39b24; --white:#fffdf7; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--paper); color:var(--ink); font-family:"PingFang SC","Noto Sans SC",Arial,sans-serif; }
+button,a { font:inherit; }
+button { color:inherit; }
+button:focus-visible,a:focus-visible { outline:3px solid var(--gold); outline-offset:4px; }
+a { color:inherit; text-decoration:none; }
+.loading { min-height:100vh; display:grid; place-items:center; font-weight:700; }
+.site-shell { overflow:hidden; }
+.topbar { height:78px; max-width:1240px; margin:auto; display:flex; align-items:center; justify-content:space-between; padding:0 28px; border-bottom:1px solid var(--line); }
+.brand { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.04em; }
+.brand>span { width:34px; height:34px; border:1.5px solid var(--ink); border-radius:50%; display:grid; place-items:center; font-family:Georgia,serif; }
+.nav-links { display:flex; gap:36px; font-size:14px; }
+.progress-pill { padding:9px 14px; border:1px solid var(--line); border-radius:99px; font-size:13px; }
+.hero { max-width:1240px; min-height:650px; margin:auto; display:grid; grid-template-columns:1.1fr .9fr; align-items:center; gap:70px; padding:70px 28px 80px; }
+.kicker { margin:0 0 16px; color:var(--orange); text-transform:uppercase; letter-spacing:.18em; font-size:12px; font-weight:800; }
+.hero h1 { margin:0; max-width:760px; font:500 clamp(54px,7vw,98px)/.98 Georgia,"Songti SC",serif; letter-spacing:-.045em; }
+.hero h1 em { color:var(--orange); font-weight:500; }
+.hero-text { max-width:550px; margin:32px 0; color:#53645e; font-size:18px; line-height:1.8; }
+.hero-actions { display:flex; align-items:center; gap:26px; }
+.primary,.secondary,.activity-button { border:0; border-radius:4px; padding:15px 22px; font-weight:800; cursor:pointer; }
+.primary { background:var(--orange); color:white; box-shadow:5px 5px 0 var(--ink); }
+.primary span { margin-left:18px; }
+.primary:disabled,.secondary:disabled { opacity:.35; cursor:not-allowed; box-shadow:none; }
+.text-link { border-bottom:1px solid; padding-bottom:4px; font-size:14px; }
+.hero-lab { min-height:440px; position:relative; background:#e8e5d9; border:1px solid var(--line); overflow:hidden; }
+.lab-note { position:absolute; top:20px; left:22px; font-size:11px; letter-spacing:.16em; text-transform:uppercase; }
+.orbit { position:absolute; border:1px solid #b3b9ae; border-radius:50%; }
+.orbit-one { width:350px; height:350px; top:45px; left:52px; }
+.orbit-two { width:220px; height:220px; top:108px; left:118px; }
+.big-number { position:absolute; top:82px; left:150px; font:200px/.9 Georgia,serif; color:var(--orange); }
+.dot-cluster { position:absolute; right:34px; top:110px; display:grid; gap:10px; }
+.dot-cluster i { width:28px; height:28px; border-radius:50%; background:var(--gold); border:1px solid var(--ink); }
+.hero-lab>p { position:absolute; bottom:22px; left:24px; font:24px/1.25 Georgia,"Songti SC",serif; }
+.method-strip { background:var(--ink); color:var(--white); padding:28px max(28px,calc((100vw - 1184px)/2)); display:flex; align-items:center; gap:50px; }
+.method-strip>p { color:#aabbb4; font-size:12px; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; }
+.method-strip ol { list-style:none; margin:0; padding:0; flex:1; display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+.method-strip li { display:flex; gap:12px; align-items:center; font-weight:650; }
+.method-strip b { color:#e89076; font-size:12px; }
+.courses-section,.coming-soon { max-width:1184px; margin:auto; padding:110px 0; }
+.section-heading { display:flex; justify-content:space-between; align-items:end; margin-bottom:42px; }
+.section-heading h2 { margin:0; font:54px/1 Georgia,"Songti SC",serif; }
+.section-heading>p { width:340px; color:var(--muted); line-height:1.7; }
+.course-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.course-card { display:grid; grid-template-columns:110px 1fr; min-height:360px; border:1px solid var(--line); background:rgba(255,255,255,.28); transition:transform .2s,background .2s; }
+.course-card:hover { transform:translateY(-4px); background:var(--white); }
+.course-number { padding:25px; border-right:1px solid var(--line); color:var(--accent); font:54px/1 Georgia,serif; }
+.course-body { padding:34px; display:flex; flex-direction:column; }
+.card-meta { color:var(--muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
+.course-body h3 { margin:10px 0 15px; font:44px/1 Georgia,"Songti SC",serif; }
+.course-body>p { color:#53645e; line-height:1.7; }
+.goal-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:15px; }
+.goal-list span { padding:7px 10px; background:#e4e3d8; font-size:12px; }
+.card-footer { display:flex; align-items:center; gap:18px; margin-top:auto; padding-top:25px; }
+.mini-progress { flex:1; height:3px; background:#d5d5cb; }
+.mini-progress i { display:block; height:100%; background:var(--accent); }
+.card-footer button { border:0; background:none; font-weight:800; cursor:pointer; }
+.coming-soon { padding-top:0; }
+.chapter-row { display:grid; grid-template-columns:80px 1fr auto; padding:25px 4px; border-top:1px solid var(--line); align-items:center; }
+.chapter-row span { color:var(--muted); font-family:Georgia,serif; }
+.chapter-row b { font:26px Georgia,"Songti SC",serif; }
+.chapter-row small { color:var(--muted); }
+.site-shell>footer { max-width:1184px; margin:auto; border-top:1px solid var(--line); padding:35px 0 60px; display:flex; justify-content:space-between; color:var(--muted); }
+
+.lesson-shell { min-height:100vh; display:flex; flex-direction:column; background:var(--paper); }
+.lesson-header { min-height:78px; border-bottom:1px solid var(--line); display:grid; grid-template-columns:70px 1fr auto; align-items:center; gap:18px; padding:0 28px; }
+.icon-button { width:44px; height:44px; border:1px solid var(--line); background:none; cursor:pointer; font-size:22px; }
+.lesson-header>div>p { margin:0; color:var(--accent); font-size:10px; letter-spacing:.15em; text-transform:uppercase; }
+.lesson-header strong { font-family:Georgia,"Songti SC",serif; font-size:22px; }
+.lesson-progress { display:flex; align-items:center; gap:15px; }
+.lesson-progress>div { display:flex; gap:5px; }
+.lesson-progress i { width:34px; height:3px; background:#d2d3ca; }
+.lesson-progress i.active { background:var(--accent); }
+.lesson-layout { flex:1; min-height:0; display:grid; grid-template-columns:270px 1fr; }
+.lesson-aside { border-right:1px solid var(--line); padding:32px 24px; }
+.scene-link { display:flex; gap:12px; padding:12px 0; opacity:.45; }
+.scene-link.current,.scene-link.done { opacity:1; }
+.scene-link>span { width:28px; height:28px; border:1px solid var(--line); border-radius:50%; display:grid; place-items:center; flex:none; font-size:12px; }
+.scene-link.current>span,.scene-link.done>span { background:var(--accent); color:white; border-color:var(--accent); }
+.scene-link p { margin:0; font-size:10px; color:var(--muted); }
+.scene-link b { display:block; margin-top:4px; color:var(--ink); font-size:13px; }
+.stage-wrap { padding:38px max(30px,6vw) 40px; display:grid; grid-template-columns:minmax(250px,390px) minmax(420px,1fr); align-items:center; gap:5vw; }
+.stage-title h1 { margin:0 0 22px; font:clamp(42px,5vw,72px)/1.03 Georgia,"Songti SC",serif; letter-spacing:-.035em; }
+.stage-title>p:last-child { color:#53645e; line-height:1.8; font-size:17px; }
+.activity { min-height:430px; background:var(--white); border:1px solid var(--line); padding:36px; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
+.object-field { display:flex; flex-wrap:wrap; gap:18px; justify-content:center; }
+.object-field button { width:64px; height:64px; border:1px solid var(--ink); border-radius:50% 50% 46% 54%; background:#efbd3d; cursor:pointer; transition:.25s; }
+.object-field button.picked { transform:translateY(160px) scale(.7); opacity:.2; }
+.counter { position:absolute; left:36px; bottom:26px; display:flex; align-items:baseline; gap:10px; }
+.counter strong { font:72px Georgia,serif; color:var(--accent); }
+.counter span { color:var(--muted); }
+.story-line { display:flex; align-items:center; justify-content:space-around; font:52px Georgia,serif; }
+.story-line div { opacity:.15; transform:translateY(10px); transition:.4s; }
+.story-line div.shown { opacity:1; transform:none; }
+.story-line .final { color:var(--accent); font-size:100px; }
+.activity-button { margin:45px auto 0; background:var(--ink); color:white; }
+.card-sort { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.card-sort button { min-height:100px; border:1px solid var(--line); background:var(--paper); font:42px Georgia,"Songti SC",serif; cursor:pointer; }
+.card-sort button.selected { background:var(--accent); color:white; border-color:var(--accent); transform:translateY(-4px); }
+.hint { text-align:center; color:var(--muted); font-size:13px; margin-top:24px; }
+.place-columns { display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--ink); }
+.place-columns>div { text-align:center; padding:16px; border-right:1px solid var(--ink); }
+.place-columns>div:last-child { border:0; }
+.place-columns small { display:block; color:var(--muted); }
+.place-columns strong { display:block; margin-top:15px; font:72px Georgia,serif; color:var(--accent); }
+.place-actions { display:flex; gap:8px; margin-top:26px; flex-wrap:wrap; }
+.place-actions button { flex:1; padding:13px; border:1px solid var(--line); background:var(--paper); cursor:pointer; }
+.place-actions button.done { background:var(--ink); color:white; }
+.blocks { min-height:130px; display:flex; flex-wrap:wrap; align-items:end; gap:7px; justify-content:center; }
+.blocks i { width:28px; height:28px; background:var(--gold); border:1px solid var(--ink); animation:block-in .25s ease-out; }
+.blocks i.hundred { width:86px; height:86px; background:#d9e4dc; }
+@keyframes block-in { from { transform:translateY(-30px) rotate(10deg); opacity:0; } }
+.build-readout { text-align:center; margin-top:24px; }
+.build-readout strong { font:72px Georgia,serif; color:var(--accent); }
+.quiz-count { color:var(--accent); font-size:12px; letter-spacing:.14em; text-transform:uppercase; }
+.quiz-card h2,.result-card h2 { font:34px/1.2 Georgia,"Songti SC",serif; }
+.quiz-options { display:grid; gap:10px; }
+.quiz-options button { text-align:left; padding:15px 18px; background:var(--paper); border:1px solid var(--line); cursor:pointer; }
+.quiz-options button:hover { border-color:var(--accent); transform:translateX(4px); }
+.quiz-feedback { min-height:24px; color:var(--orange); }
+.result-card { text-align:center; align-items:center; }
+.result-ring { width:150px; height:150px; border:12px solid var(--gold); border-radius:50%; display:grid; place-items:center; font:56px Georgia,serif; }
+.result-ring small { font:14px sans-serif; margin-top:-45px; }
+.lesson-controls { min-height:84px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:30px; padding:15px 28px; }
+.lesson-controls p { flex:1; color:var(--muted); text-align:center; font-size:13px; }
+.secondary { border:1px solid var(--line); background:none; }
+
+@media (max-width:900px) {
+  .nav-links { display:none; }
+  .hero { grid-template-columns:1fr; padding-top:50px; }
+  .hero-lab { min-height:380px; }
+  .method-strip,.section-heading { align-items:flex-start; flex-direction:column; }
+  .method-strip ol,.course-grid { grid-template-columns:1fr; }
+  .courses-section,.coming-soon,.site-shell>footer { padding-left:22px; padding-right:22px; }
+  .section-heading>p { width:auto; }
+  .lesson-aside { display:none; }
+  .lesson-layout { grid-template-columns:1fr; }
+  .stage-wrap { grid-template-columns:1fr; padding:32px 22px; }
+  .activity { min-height:390px; }
+}
+@media (max-width:560px) {
+  .topbar { padding:0 16px; }
+  .progress-pill { display:none; }
+  .hero { padding:40px 18px 60px; gap:35px; }
+  .hero h1 { font-size:52px; }
+  .hero-actions { align-items:flex-start; flex-direction:column; }
+  .method-strip { padding:28px 18px; }
+  .method-strip ol { grid-template-columns:1fr 1fr; }
+  .course-card { grid-template-columns:68px 1fr; }
+  .course-number { padding:18px 12px; font-size:34px; }
+  .course-body { padding:24px 18px; }
+  .course-body h3 { font-size:36px; }
+  .lesson-header { grid-template-columns:52px 1fr; padding:0 12px; }
+  .lesson-progress { display:none; }
+  .stage-wrap { padding:25px 14px; }
+  .stage-title h1 { font-size:43px; }
+  .activity { min-height:360px; padding:22px; }
+  .card-sort { grid-template-columns:1fr 1fr; }
+  .lesson-controls { padding:12px; gap:8px; }
+  .lesson-controls p { display:none; }
+  .lesson-controls button { flex:1; }
+}
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; transition-duration:.01ms!important; } }
