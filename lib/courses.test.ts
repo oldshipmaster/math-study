@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { courses } from "./courses";
 
 describe("course catalog", () => {
-  it("ships forty-five complete open lessons", () => {
+  it("ships fifty complete open lessons", () => {
     expect(courses.map((course) => course.id)).toEqual([
       "symbols",
       "place-value",
@@ -49,8 +49,13 @@ describe("course catalog", () => {
       "factor-pairs",
       "multiple-calculation",
       "times-tables",
+      "multiplication-tricks",
+      "multiply-powers-of-ten",
+      "multiply-tens",
+      "multiplication-partitioning",
+      "multiplication-grid",
     ]);
-    expect(courses).toHaveLength(45);
+    expect(courses).toHaveLength(50);
     expect(courses[0].scenes).toHaveLength(5);
     expect(courses.slice(1).every((course) => course.scenes.length === 6)).toBe(true);
   });
