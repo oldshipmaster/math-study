@@ -12,6 +12,10 @@ import { EstimateScene } from "./scenes/EstimateScene";
 import { MultiplesScene } from "./scenes/MultiplesScene";
 import { OrderScene } from "./scenes/OrderScene";
 import { RoundingScene } from "./scenes/RoundingScene";
+import { FactorTreeScene } from "./scenes/FactorTreeScene";
+import { FractionScene } from "./scenes/FractionScene";
+import { PowerScene } from "./scenes/PowerScene";
+import { PrimeScene } from "./scenes/PrimeScene";
 
 type View = "home" | "lesson";
 
@@ -158,7 +162,7 @@ function Home({ progress, onOpen, resetView, resetCourseId, resetMessage, onOpen
       </section>
 
       <section className="courses-section" id="courses">
-        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到倍数</h2></div><div className="section-side"><p>十节完整互动课，从数字符号出发，建立比较、估算与倍数思维。</p><button className="mobile-reset" onClick={onOpenReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
+        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到分数</h2></div><div className="section-side"><p>十五节完整互动课，从数字符号出发，探索比较、数的性质与分数思维。</p><button className="mobile-reset" onClick={onOpenReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
         <div className="course-grid">
           {courses.map((course) => {
             const saved = progress.lessons[course.id];
@@ -214,6 +218,10 @@ function Scene({ scene, onComplete }: { scene: LessonScene; onComplete: (correct
   if (scene.kind === "estimate") return <EstimateScene scene={scene} onComplete={onComplete} />;
   if (scene.kind === "rounding") return <RoundingScene scene={scene} onComplete={onComplete} />;
   if (scene.kind === "multiples") return <MultiplesScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "prime") return <PrimeScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "factor-tree") return <FactorTreeScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "power") return <PowerScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "fraction") return <FractionScene scene={scene} onComplete={onComplete} />;
   return <Build scene={scene} onComplete={onComplete} />;
 }
 
