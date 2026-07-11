@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { courses } from "./courses";
 
 describe("course catalog", () => {
-  it("ships twenty-five complete open lessons", () => {
+  it("ships thirty complete open lessons", () => {
     expect(courses.map((course) => course.id)).toEqual([
       "symbols",
       "place-value",
@@ -29,8 +29,13 @@ describe("course catalog", () => {
       "decimal-rounding",
       "decimal-addition",
       "decimal-subtraction",
+      "percent-conversion",
+      "ratios",
+      "proportions",
+      "fraction-representations",
+      "addition-basics",
     ]);
-    expect(courses.map((course) => course.scenes.length)).toEqual([5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]);
+    expect(courses.map((course) => course.scenes.length)).toEqual([5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]);
   });
 
   it("ends each lesson with a three-question quiz", () => {
@@ -63,5 +68,8 @@ describe("course catalog", () => {
     expect(courses[22].scenes.some((scene) => scene.kind === "decimal")).toBe(true);
     expect(courses[23].scenes.some((scene) => scene.kind === "decimal")).toBe(true);
     expect(courses[24].scenes.some((scene) => scene.kind === "decimal")).toBe(true);
+    expect(courses[25].scenes.some((scene) => scene.kind === "ratio")).toBe(true);
+    expect(courses[28].scenes.some((scene) => scene.kind === "ratio")).toBe(true);
+    expect(courses[29].scenes.some((scene) => scene.kind === "addition")).toBe(true);
   });
 });
