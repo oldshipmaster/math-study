@@ -16,7 +16,7 @@ export type LessonScene = {
 };
 
 export type Course = {
-  id: "symbols" | "place-value" | "sequences" | "shape-patterns" | "signed-numbers" | "comparison" | "ordering" | "estimation" | "rounding" | "multiples" | "primes" | "prime-factors" | "squares" | "cubes" | "fractions" | "fraction-of-quantity" | "like-fraction-order" | "unit-fraction-order" | "fraction-addition" | "fraction-subtraction" | "fraction-multiplication" | "fraction-division" | "decimal-rounding" | "decimal-addition" | "decimal-subtraction" | "percent-conversion" | "ratios" | "proportions" | "fraction-representations" | "addition-basics";
+  id: "symbols" | "place-value" | "sequences" | "shape-patterns" | "signed-numbers" | "comparison" | "ordering" | "estimation" | "rounding" | "multiples" | "primes" | "prime-factors" | "squares" | "cubes" | "fractions" | "fraction-of-quantity" | "like-fraction-order" | "unit-fraction-order" | "fraction-addition" | "fraction-subtraction" | "fraction-multiplication" | "fraction-division" | "decimal-rounding" | "decimal-addition" | "decimal-subtraction" | "percent-conversion" | "ratios" | "proportions" | "fraction-representations" | "addition-basics" | "addition-number-line" | "addition-hundred-grid" | "addition-facts" | "addition-partitioning" | "addition-expanded-column";
   number: string;
   title: string;
   summary: string;
