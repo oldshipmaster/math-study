@@ -15,6 +15,7 @@ import { RoundingScene } from "./scenes/RoundingScene";
 import { FactorTreeScene } from "./scenes/FactorTreeScene";
 import { FractionScene } from "./scenes/FractionScene";
 import { FractionOperationScene } from "./scenes/FractionOperationScene";
+import { DecimalScene } from "./scenes/DecimalScene";
 import { PowerScene } from "./scenes/PowerScene";
 import { PrimeScene } from "./scenes/PrimeScene";
 
@@ -163,7 +164,7 @@ function Home({ progress, onOpen, resetView, resetCourseId, resetMessage, onOpen
       </section>
 
       <section className="courses-section" id="courses">
-        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到分数运算</h2></div><div className="section-side"><p>二十节完整互动课，从数字符号出发，探索数的性质、分数比较与分数运算。</p><button className="mobile-reset" onClick={onOpenReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
+        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到小数运算</h2></div><div className="section-side"><p>二十五节完整互动课，从数字符号出发，探索数的性质、分数与小数运算。</p><button className="mobile-reset" onClick={onOpenReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
         <div className="course-grid">
           {courses.map((course) => {
             const saved = progress.lessons[course.id];
@@ -224,6 +225,7 @@ function Scene({ scene, onComplete }: { scene: LessonScene; onComplete: (correct
   if (scene.kind === "power") return <PowerScene scene={scene} onComplete={onComplete} />;
   if (scene.kind === "fraction") return <FractionScene scene={scene} onComplete={onComplete} />;
   if (scene.kind === "fraction-operation") return <FractionOperationScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "decimal") return <DecimalScene scene={scene} onComplete={onComplete} />;
   return <Build scene={scene} onComplete={onComplete} />;
 }
 
