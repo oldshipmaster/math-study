@@ -102,6 +102,17 @@ describe("MathLab", () => {
     for(const [button,heading,answer] of targets){const view=render(<MathLab/>);fireEvent.click(screen.getByRole("button",{name:button}));expect(screen.getByRole("heading",{name:heading})).toBeInTheDocument();fireEvent.click(screen.getByRole("button",{name:answer}));expect(screen.getByRole("button",{name:/继续/})).toBeEnabled();view.unmount();}
   });
 
+  it("opens and completes the first interaction in lessons twenty-six through thirty",()=>{
+    const targets:[string,string,string][]=[
+      ["学习百分比的换算","12 克是 60 克的百分之几？","20%"],
+      ["学习比值","草莓与巧克力是 3:4","3:4"],
+      ["学习比例","4 只橘猫占 10 只猫","4/10"],
+      ["学习分数的不同表示","3/5 = 0.6 = 60%","0.6"],
+      ["学习加法","6 + 3 = 9","9"],
+    ];
+    for(const [button,heading,answer] of targets){const view=render(<MathLab/>);fireEvent.click(screen.getByRole("button",{name:button}));expect(screen.getByRole("heading",{name:heading})).toBeInTheDocument();fireEvent.click(screen.getByRole("button",{name:answer}));expect(screen.getByRole("button",{name:/继续/})).toBeEnabled();view.unmount();}
+  });
+
   it("completes the first dedicated interaction in each new lesson", () => {
     const targets = [
       ["学习数列与规律", "10"],
@@ -134,17 +145,17 @@ describe("MathLab", () => {
       },
     }));
     render(<MathLab />);
-    expect(screen.getByText("已完成 2/25 课")).toBeInTheDocument();
+    expect(screen.getByText("已完成 2/30 课")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "重置课程进度" }));
     expect(screen.getByRole("dialog", { name: "管理课程进度" })).toBeInTheDocument();
-    expect(screen.getByText("已完成 2/25 课")).toBeInTheDocument();
-    expect(screen.getByText("清空 25 节课程的所有记录")).toBeInTheDocument();
+    expect(screen.getByText("已完成 2/30 课")).toBeInTheDocument();
+    expect(screen.getByText("清空 30 节课程的所有记录")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "重置数字符号" }));
     expect(screen.getByRole("dialog", { name: "重置《数字符号》？" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "确认重置本课" }));
-    expect(screen.getByText("已完成 1/25 课")).toBeInTheDocument();
+    expect(screen.getByText("已完成 1/30 课")).toBeInTheDocument();
     expect(screen.getByText("《数字符号》进度已重置")).toBeInTheDocument();
     const saved = JSON.parse(localStorage.getItem("math-lab-progress") ?? "{}");
     expect(saved.lessons.symbols).toBeUndefined();
@@ -162,12 +173,12 @@ describe("MathLab", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "取消" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-    expect(screen.getByText("已完成 1/25 课")).toBeInTheDocument();
+    expect(screen.getByText("已完成 1/30 课")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "重置课程进度" }));
     fireEvent.click(screen.getByRole("button", { name: "重置全部课程" }));
     fireEvent.click(screen.getByRole("button", { name: "确认重置全部" }));
-    expect(screen.getByText("已完成 0/25 课")).toBeInTheDocument();
+    expect(screen.getByText("已完成 0/30 课")).toBeInTheDocument();
     expect(screen.getByText("全部课程进度已重置")).toBeInTheDocument();
     expect(localStorage.getItem("math-lab-progress")).toBeNull();
   });

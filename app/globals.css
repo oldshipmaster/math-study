@@ -216,6 +216,10 @@ a { color:inherit; text-decoration:none; }
 .decimal-line { width:300px; display:flex; justify-content:space-between; position:relative; border-top:3px solid var(--ink); padding-top:16px; }.decimal-line i { position:absolute; left:30%; top:-48px; padding:8px; border-radius:50%; background:var(--accent); color:white; font-style:normal; }.decimal-line i.right { left:70%; }
 .decimal-focus { font:58px Georgia,serif; }.decimal-focus b { color:var(--accent); }.decimal-focus i { padding:4px 8px; border:2px dashed var(--orange); color:var(--orange); font-style:normal; }
 .decimal-blocks { display:grid; grid-template-columns:repeat(6,28px); gap:6px; }.decimal-blocks i { width:28px; height:28px; border:1px solid var(--ink); background:var(--accent); }
+.percent-grid { width:210px; display:grid; grid-template-columns:repeat(10,1fr); gap:2px; }.percent-grid i { aspect-ratio:1; border:1px solid var(--line); background:var(--paper); }.percent-grid i.active { background:var(--accent); }
+.ratio-model,.count-on-line { padding:18px 24px; border:1px solid var(--ink); background:var(--paper); font:34px Georgia,"Songti SC",serif; }
+.ratio-bars { width:100%; display:flex; gap:6px; }.ratio-bars span { min-height:70px; display:grid; place-items:center; background:var(--accent); color:white; }
+.addition-dots { display:flex; align-items:center; gap:20px; }.addition-dots span { display:flex; flex-wrap:wrap; gap:6px; max-width:150px; }.addition-dots i { width:30px; height:30px; border-radius:50%; background:var(--accent); border:1px solid var(--ink); }.addition-dots b { font-size:36px; }
 .result-card { text-align:center; align-items:center; }
 .result-ring { width:150px; height:150px; border:12px solid var(--gold); border-radius:50%; display:grid; place-items:center; font:56px Georgia,serif; }
 .result-ring small { font:14px sans-serif; margin-top:-45px; }
