@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { courses } from "./courses";
 
 describe("course catalog", () => {
-  it("ships thirty-five complete open lessons", () => {
+  it("ships forty complete open lessons", () => {
     expect(courses.map((course) => course.id)).toEqual([
       "symbols",
       "place-value",
@@ -39,8 +39,13 @@ describe("course catalog", () => {
       "addition-facts",
       "addition-partitioning",
       "addition-expanded-column",
+      "addition-column",
+      "subtraction-facts",
+      "subtraction-partitioning",
+      "shopkeeper-addition",
+      "subtraction-expanded-column",
     ]);
-    expect(courses).toHaveLength(35);
+    expect(courses).toHaveLength(40);
     expect(courses[0].scenes).toHaveLength(5);
     expect(courses.slice(1).every((course) => course.scenes.length === 6)).toBe(true);
   });
