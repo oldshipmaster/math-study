@@ -350,4 +350,74 @@ export const courses: Course[] = [
       ]},
     ]
   },
+  {
+    id:"fraction-multiplication",number:"21",title:"分数乘法",summary:"把一个分数再取其中一部分，用面积模型看见分子分母分别相乘。",duration:"约 17 分钟",accent:"#56876b",goals:["分数乘整数","分数乘分数","约分乘积"],scenes:[
+      {id:"multiply-half-quarter",kind:"fraction-operation",eyebrow:"花圃面积",title:"四分之一的一半",body:"1/4 的 1/2 是整个花圃的 1/8。",instruction:"选择 1/4×1/2 的结果。"},
+      {id:"multiply-integer",kind:"fraction-operation",eyebrow:"重复相加",title:"1/2 × 3",body:"三个 1/2 相加是 3/2，也就是 1又1/2。",instruction:"选择计算结果。"},
+      {id:"multiply-numerators",kind:"fraction-operation",eyebrow:"分子通道",title:"分子乘分子",body:"2/5×2/3 的新分子是 2×2=4。",instruction:"选择新的分子。"},
+      {id:"multiply-denominators",kind:"fraction-operation",eyebrow:"分母通道",title:"分母乘分母",body:"2/5×2/3 的新分母是 5×3=15。",instruction:"选择完整乘积。"},
+      {id:"multiply-simplify",kind:"fraction-operation",eyebrow:"约分检查",title:"让答案保持最简",body:"分数相乘后，如果分子分母有公因数，要继续约分。",instruction:"选择 2/3×3/4 的最简结果。"},
+      {id:"fraction-multiplication-quiz",kind:"quiz",eyebrow:"终局测验",title:"分数乘法师认证",body:"完成三道分数乘法题。",questions:[
+        {prompt:"1/4×1/2=?",options:["1/6","1/8","2/4"],answer:1,explanation:"分子 1×1，分母 4×2，得到 1/8。"},
+        {prompt:"2/5×2/3=?",options:["4/15","4/8","2/15"],answer:0,explanation:"2×2=4，5×3=15。"},
+        {prompt:"2/3×3/4 的最简结果？",options:["6/12","1/2","5/7"],answer:1,explanation:"6/12 约分为 1/2。"},
+      ]},
+    ]
+  },
+  {
+    id:"fraction-division",number:"22",title:"分数除法",summary:"把一份再平均分，或乘上除数的倒数，把除法变成乘法。",duration:"约 16 分钟",accent:"#7b67a1",goals:["理解等分","除数取倒数","除法转乘法"],scenes:[
+      {id:"divide-quarter-three",kind:"fraction-operation",eyebrow:"西瓜等分",title:"1/4 平均分给 3 人",body:"把四分之一再分成 3 份，每人得到整体的 1/12。",instruction:"选择 1/4÷3 的结果。"},
+      {id:"divide-half-two",kind:"fraction-operation",eyebrow:"分数墙",title:"1/2 ÷ 2 = 1/4",body:"一半再平均分成两份，每份是整体的四分之一。",instruction:"选择结果。"},
+      {id:"division-to-multiply",kind:"fraction-operation",eyebrow:"除号变身",title:"除以 3 等于乘 1/3",body:"把除数 3 写成 3/1，再取倒数 1/3，同时把除号改为乘号。",instruction:"选择正确改写。"},
+      {id:"divide-by-fraction",kind:"fraction-operation",eyebrow:"倒数钥匙",title:"2/3 ÷ 4/5",body:"保持 2/3 不变，把除数 4/5 取倒数 5/4。",instruction:"选择变换后的乘法。"},
+      {id:"division-check",kind:"fraction-operation",eyebrow:"大小检查",title:"除以大于 1 的数，结果变小",body:"1/4÷3 的结果应小于 1/4，估计能帮助发现颠倒错误。",instruction:"选择合理结果。"},
+      {id:"fraction-division-quiz",kind:"quiz",eyebrow:"终局测验",title:"分数除法师认证",body:"完成三道分数除法题。",questions:[
+        {prompt:"1/4÷3=?",options:["1/12","3/4","3/12"],answer:0,explanation:"1/4×1/3=1/12。"},
+        {prompt:"2/3÷4/5 应改写成？",options:["2/3×4/5","3/2×5/4","2/3×5/4"],answer:2,explanation:"被除数不变，除数 4/5 取倒数。"},
+        {prompt:"1/2÷2=?",options:["1","1/4","2/2"],answer:1,explanation:"一半再分两份，每份是 1/4。"},
+      ]},
+    ]
+  },
+  {
+    id:"decimal-rounding",number:"23",title:"小数的四舍五入",summary:"移动观察位，把小数精确到个位、十分位或百分位。",duration:"约 15 分钟",accent:"#3c8c91",goals:["确定保留位","查看下一位","写出近似小数"],scenes:[
+      {id:"decimal-nearest-one",kind:"decimal",eyebrow:"数轴靠近",title:"1.3 更靠近 1",body:"精确到个位，就是寻找最近的整数。",instruction:"把 1.3 精确到个位。"},
+      {id:"decimal-round-up-one",kind:"decimal",eyebrow:"另一侧",title:"1.7 更靠近 2",body:"十分位 7 大于等于 5，个位进一。",instruction:"把 1.7 精确到个位。"},
+      {id:"decimal-tenths",kind:"decimal",eyebrow:"保留十分位",title:"1.15 精确到十分位",body:"观察百分位 5，十分位进一，得到 1.2。",instruction:"选择结果。"},
+      {id:"decimal-hundredths",kind:"decimal",eyebrow:"保留百分位",title:"1.116 精确到百分位",body:"观察千分位 6，百分位进一，得到 1.12。",instruction:"选择结果。"},
+      {id:"decimal-target-digit",kind:"decimal",eyebrow:"观察位探照灯",title:"目标位右边决定舍入",body:"要保留哪一位，就观察它右边紧挨着的一位。",instruction:"保留百分位时应该观察哪一位？"},
+      {id:"decimal-rounding-quiz",kind:"quiz",eyebrow:"终局测验",title:"小数取整师认证",body:"完成三道小数舍入题。",questions:[
+        {prompt:"2.36 精确到十分位？",options:["2.3","2.4","2.36"],answer:1,explanation:"百分位 6 进一，得到 2.4。"},
+        {prompt:"1.114 精确到百分位？",options:["1.11","1.12","1.1"],answer:0,explanation:"千分位 4 舍去。"},
+        {prompt:"5.6 精确到个位？",options:["5","6","5.6"],answer:1,explanation:"十分位 6 进一。"},
+      ]},
+    ]
+  },
+  {
+    id:"decimal-addition",number:"24",title:"小数加法",summary:"把小数点对齐，从最右边相加，满十向前进一。",duration:"约 16 分钟",accent:"#c0753d",goals:["对齐小数点","十分位进位","完成小数竖式"],scenes:[
+      {id:"decimal-add-money",kind:"decimal",eyebrow:"甜点结账",title:"4.5 + 7.7",body:"先估算约 12 元，再精确计算。",instruction:"选择精确总价。"},
+      {id:"decimal-align-add",kind:"decimal",eyebrow:"小数点磁铁",title:"相同数位上下对齐",body:"十分位对十分位，个位对个位，小数点也上下对齐。",instruction:"选择正确竖式。"},
+      {id:"decimal-tenths-carry",kind:"decimal",eyebrow:"十分位进位",title:"0.5 + 0.7 = 1.2",body:"12 个十分之一等于 1 个一和 2 个十分之一。",instruction:"选择小数部分的和。"},
+      {id:"decimal-column-add",kind:"decimal",eyebrow:"竖式挑战",title:"从最右位开始相加",body:"十分位满十进一，再计算个位，最后落下小数点。",instruction:"选择 4.5+7.7 的结果。"},
+      {id:"decimal-add-check",kind:"decimal",eyebrow:"金额检查",title:"结果应接近估算",body:"4.5≈5，7.7≈8，总和应接近 13，12.2 合理。",instruction:"判断哪个答案合理。"},
+      {id:"decimal-addition-quiz",kind:"quiz",eyebrow:"终局测验",title:"小数加法师认证",body:"完成三道小数加法题。",questions:[
+        {prompt:"4.5+7.7=?",options:["11.2","12.2","12.12"],answer:1,explanation:"十分位 5+7=12，向个位进一。"},
+        {prompt:"2.35+1.4=?",options:["3.75","2.49","3.39"],answer:0,explanation:"写成 2.35+1.40=3.75。"},
+        {prompt:"小数竖式最重要的对齐是？",options:["最左边","小数点","最后一位数字"],answer:1,explanation:"小数点对齐才能保证相同数位相加。"},
+      ]},
+    ]
+  },
+  {
+    id:"decimal-subtraction",number:"25",title:"小数减法",summary:"小数点对齐，不够减时向前一位借一，化成十个当前单位。",duration:"约 16 分钟",accent:"#b55f59",goals:["对齐小数点","理解借位","检查差值"],scenes:[
+      {id:"decimal-price-difference",kind:"decimal",eyebrow:"价格差",title:"8.2 - 4.7",body:"两个价格相差 3.5 元。",instruction:"选择差价。"},
+      {id:"decimal-align-subtract",kind:"decimal",eyebrow:"小数点磁铁",title:"相同数位上下对齐",body:"先对齐小数点，再从最右边开始相减。",instruction:"选择正确竖式。"},
+      {id:"decimal-borrow",kind:"decimal",eyebrow:"借一换十",title:"2 个十分之一不够减 7 个",body:"向个位借 1，换成 10 个十分之一，2 就变成 12。",instruction:"选择借位后的十分位数量。"},
+      {id:"decimal-column-subtract",kind:"decimal",eyebrow:"竖式挑战",title:"12-7=5，7-4=3",body:"借位后个位从 8 变 7，得到 3.5。",instruction:"选择结果。"},
+      {id:"decimal-subtract-check",kind:"decimal",eyebrow:"差值检查",title:"加回去验证",body:"3.5+4.7=8.2，所以减法结果正确。",instruction:"选择正确验算式。"},
+      {id:"decimal-subtraction-quiz",kind:"quiz",eyebrow:"终局测验",title:"小数减法师认证",body:"完成三道小数减法题。",questions:[
+        {prompt:"8.2-4.7=?",options:["3.5","4.5","3.15"],answer:0,explanation:"借位后 12-7=5，7-4=3。"},
+        {prompt:"5.00-2.36=?",options:["2.64","3.36","2.74"],answer:0,explanation:"逐位借位计算得到 2.64。"},
+        {prompt:"哪个式子能验算 8.2-4.7=3.5？",options:["8.2+4.7","3.5+4.7=8.2","8.2-3.5=3.5"],answer:1,explanation:"差加减数应等于被减数。"},
+      ]},
+    ]
+  },
 ];
