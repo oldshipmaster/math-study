@@ -1,0 +1,14 @@
+"use client";
+import type {LessonScene} from "../../lib/course-types";
+import {SceneChoice} from "./SceneChoice";
+const opts=(...labels:string[])=>labels.map(label=>({label}));
+const line=(values:string[])=><div className="division-line">{values.map((v,i)=><span key={`${v}-${i}`}>{v}</span>)}</div>;
+const grid=(focus:string)=><div className="division-grid">{Array.from({length:10},(_,r)=>Array.from({length:10},(_,c)=>{const n=r*c;return <i className={`${n}`===focus?"active":""} key={`${r}-${c}`}>{r&&c?n:""}</i>}))}</div>;
+const card=(text:string)=><div className="division-card">{text}</div>;
+const configs:Record<string,{visual:React.ReactNode;options:{label:string}[];answer:string}>={
+"division-meaning":{visual:line(["27","3","3","3","…"]),options:opts("27 里有多少个 3","27 加 3","3 里有多少个 27"),answer:"27 里有多少个 3"},"division-jumps":{visual:line(["0","3","6","9","…","27"]),options:opts("8","9","10"),answer:"9"},"division-big-jumps":{visual:line(["0","30","42"]),options:opts("12 组","14 组","16 组"),answer:"14 组"},"division-remainder":{visual:line(["42","43","44","45"]),options:opts("1","2","3"),answer:"2"},"division-result":{visual:card("44 ÷ 3"),options:opts("13余1","14余2","15余1"),answer:"14余2"},
+"division-grid-inverse":{visual:grid("56"),options:opts("56÷7=8","56−7=8","56+7=8"),answer:"56÷7=8"},"division-grid-top":{visual:grid("56"),options:opts("7","8","9"),answer:"8"},"division-grid-left":{visual:grid("56"),options:opts("7","8","9"),answer:"8"},"division-grid-two-ways":{visual:card("顶行 7 ↓ 56 ← 8\n左列 7 → 56 ↑ 8"),options:opts("两条路径同为 8","顶行才正确","左列才正确"),answer:"两条路径同为 8"},"division-grid-new":{visual:grid("72"),options:opts("7","8","9"),answer:"8"},
+"table-divide-juice":{visual:card("24 ÷ 12"),options:opts("2","3","4"),answer:"2"},"table-divide-cookies":{visual:card("96 ÷ 12"),options:opts("6","8","9"),answer:"8"},"table-divide-chocolate":{visual:card("108 ÷ 12"),options:opts("8","9","10"),answer:"9"},"table-fact-family":{visual:card("3 × 7 = 21"),options:opts("21÷3=7","21−3=7","21+3=7"),answer:"21÷3=7"},"table-role-names":{visual:card("21 ÷ 3 = 7"),options:opts("21","3","7"),answer:"7"},
+"divide-ten":{visual:line(["6452","→","645.2"]),options:opts("64.52","645.2","6452"),answer:"645.2"},"divide-hundred":{visual:line(["6452","→→","64.52"]),options:opts("6.452","64.52","645.2"),answer:"64.52"},"divide-thousand":{visual:line(["6452","→→→","6.452"]),options:opts("6.452","64.52","645.2"),answer:"6.452"},"divide-money":{visual:card("¥555 ÷ 10人"),options:opts("¥5.55","¥55.5","¥555"),answer:"¥55.5"},"divide-place-rule":{visual:card("千 百 十 个 · 十分 百分 千分"),options:opts("每个数字整体右移","只擦掉零","小数点随意移动"),answer:"每个数字整体右移"},
+};
+export function DivisionScene({scene,onComplete}:{scene:LessonScene;onComplete:(correct:number,attempts:number)=>void}){return <SceneChoice {...(configs[scene.id]??configs["division-meaning"])} onComplete={onComplete} className="division-scene"/>;}
