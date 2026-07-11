@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { courses } from "./courses";
 
 describe("course catalog", () => {
-  it("ships fifteen complete open lessons", () => {
+  it("ships twenty complete open lessons", () => {
     expect(courses.map((course) => course.id)).toEqual([
       "symbols",
       "place-value",
@@ -19,8 +19,13 @@ describe("course catalog", () => {
       "squares",
       "cubes",
       "fractions",
+      "fraction-of-quantity",
+      "like-fraction-order",
+      "unit-fraction-order",
+      "fraction-addition",
+      "fraction-subtraction",
     ]);
-    expect(courses.map((course) => course.scenes.length)).toEqual([5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]);
+    expect(courses.map((course) => course.scenes.length)).toEqual([5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]);
   });
 
   it("ends each lesson with a three-question quiz", () => {
@@ -45,5 +50,8 @@ describe("course catalog", () => {
     expect(courses[12].scenes.some((scene) => scene.kind === "power")).toBe(true);
     expect(courses[13].scenes.some((scene) => scene.kind === "power")).toBe(true);
     expect(courses[14].scenes.some((scene) => scene.kind === "fraction")).toBe(true);
+    expect(courses[15].scenes.some((scene) => scene.kind === "fraction")).toBe(true);
+    expect(courses[18].scenes.some((scene) => scene.kind === "fraction-operation")).toBe(true);
+    expect(courses[19].scenes.some((scene) => scene.kind === "fraction-operation")).toBe(true);
   });
 });

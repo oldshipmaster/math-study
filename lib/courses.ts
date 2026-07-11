@@ -280,4 +280,74 @@ export const courses: Course[] = [
       ] },
     ]
   },
+  {
+    id:"fraction-of-quantity",number:"16",title:"求一个数量的一部分",summary:"先求一份，再取几份，把分数变成确切数量。",duration:"约 14 分钟",accent:"#4f8a72",goals:["先除以分母","再乘以分子","解决数量问题"],scenes:[
+      {id:"share-twelve",kind:"fraction",eyebrow:"奶牛分组",title:"12 的四分之一是多少？",body:"把 12 平均分成 4 份，每份有 3。",instruction:"选择 12 的 1/4。"},
+      {id:"take-three-parts",kind:"fraction",eyebrow:"取三份",title:"12 的四分之三",body:"一份是 3，取三份就是 3×3=9。",instruction:"选择 12 的 3/4。"},
+      {id:"divide-then-multiply",kind:"fraction",eyebrow:"两步机器",title:"先除分母，再乘分子",body:"求一个数量的几分之几，可以先除以分母求一份，再乘分子求几份。",instruction:"选择正确的计算顺序。"},
+      {id:"hens-three-quarters",kind:"fraction",eyebrow:"养鸡场任务",title:"24 的四分之三",body:"24÷4=6，6×3=18。",instruction:"选择需要带走的母鸡数。"},
+      {id:"fraction-quantity-builder",kind:"fraction",eyebrow:"数量建模",title:"把分数贴到数量上",body:"图形分组能帮助我们看见分母决定份数、分子决定取几份。",instruction:"选择 20 的 2/5。"},
+      {id:"fraction-of-quantity-quiz",kind:"quiz",eyebrow:"终局测验",title:"分数任务员认证",body:"完成三道数量分数题。",questions:[
+        {prompt:"12 的 3/4 是多少？",options:["3","9","16"],answer:1,explanation:"12÷4×3=9。"},
+        {prompt:"20 的 2/5 是多少？",options:["4","8","10"],answer:1,explanation:"20÷5=4，4×2=8。"},
+        {prompt:"求 18 的 2/3，第一步应该？",options:["18÷3","18×3","18÷2"],answer:0,explanation:"先除以分母 3 求出一份。"},
+      ]},
+    ]
+  },
+  {
+    id:"like-fraction-order",number:"17",title:"同分母分数比较",summary:"每份一样大时，谁取的份数多谁就更大。",duration:"约 13 分钟",accent:"#7a6cab",goals:["理解同分母","比较分子","排列同分母分数"],scenes:[
+      {id:"same-eighths",kind:"fraction",eyebrow:"豌豆豆荚",title:"八等份中的不同数量",body:"3/8、1/8、5/8、6/8 的每份一样大，只需比较取了几份。",instruction:"选择最大的分数。"},
+      {id:"numerator-wins",kind:"fraction",eyebrow:"分子擂台",title:"分母相同看分子",body:"分母相同，分子越大，拥有的部分越多。",instruction:"比较 3/7 和 5/7。"},
+      {id:"like-order-up",kind:"fraction",eyebrow:"升序轨道",title:"从小到大排队",body:"保持分母 8 不变，按分子 1、3、5、6 排列。",instruction:"选择正确升序。"},
+      {id:"like-bars",kind:"fraction",eyebrow:"分数条验证",title:"让图形证明答案",body:"同样长度的分数条被分成相同份数，涂色越多分数越大。",instruction:"选择涂色更多的分数条。"},
+      {id:"like-symbol",kind:"fraction",eyebrow:"符号挑战",title:"放入大于或小于号",body:"比较分子后，把正确符号放进两个同分母分数之间。",instruction:"完成 2/9 与 7/9 的比较。"},
+      {id:"like-fraction-quiz",kind:"quiz",eyebrow:"终局测验",title:"同分母裁判认证",body:"完成三道比较题。",questions:[
+        {prompt:"3/8 和 6/8 哪个大？",options:["3/8","6/8","一样大"],answer:1,explanation:"分母相同，分子 6 更大。"},
+        {prompt:"哪组是升序？",options:["5/7、3/7、1/7","1/7、3/7、5/7","3/7、1/7、5/7"],answer:1,explanation:"分子从 1 增加到 5。"},
+        {prompt:"2/9 ? 7/9",options:[">","<","="],answer:1,explanation:"2 小于 7，所以 2/9 < 7/9。"},
+      ]},
+    ]
+  },
+  {
+    id:"unit-fraction-order",number:"18",title:"单位分数比较",summary:"分子都是 1，切得越多，每一份反而越小。",duration:"约 13 分钟",accent:"#d08343",goals:["认识单位分数","用分母比较","按大小排列"],scenes:[
+      {id:"carrot-halves",kind:"fraction",eyebrow:"胡萝卜切分",title:"二分之一、三分之一、五分之一",body:"同一根胡萝卜分成越多份，每一份越短。",instruction:"选择最大的一份。"},
+      {id:"denominator-reverse",kind:"fraction",eyebrow:"反向规律",title:"分母越大，单位分数越小",body:"1/2 大于 1/3，1/3 大于 1/5。",instruction:"选择最小的单位分数。"},
+      {id:"unit-order-down",kind:"fraction",eyebrow:"降序轨道",title:"从大到小排列",body:"单位分数比较时，分母要从小到大排列，分数才会从大到小。",instruction:"选择正确降序。"},
+      {id:"unit-bars",kind:"fraction",eyebrow:"分数条验证",title:"同一整体切得更细",body:"用等长分数条观察 1/3 与 1/6 的实际大小。",instruction:"选择更大的分数。"},
+      {id:"comparison-rules",kind:"fraction",eyebrow:"规则分流",title:"先看相同的是谁",body:"分母相同看分子；分子相同看分母，但大小方向相反。",instruction:"选择适合比较 1/4 和 1/7 的规则。"},
+      {id:"unit-fraction-quiz",kind:"quiz",eyebrow:"终局测验",title:"单位分数导航员认证",body:"完成三道单位分数题。",questions:[
+        {prompt:"1/2 和 1/5 哪个大？",options:["1/2","1/5","一样大"],answer:0,explanation:"同一整体分成 2 份，每份比分成 5 份更大。"},
+        {prompt:"哪个单位分数最小？",options:["1/3","1/6","1/9"],answer:2,explanation:"分母最大的 1/9 最小。"},
+        {prompt:"哪组从大到小？",options:["1/8、1/4、1/2","1/2、1/4、1/8","1/4、1/2、1/8"],answer:1,explanation:"单位分数分母越小越大。"},
+      ]},
+    ]
+  },
+  {
+    id:"fraction-addition",number:"19",title:"分数加法",summary:"先让每一份一样大，再把拥有的份数合在一起。",duration:"约 17 分钟",accent:"#397fa0",goals:["同分母相加","异分母通分","处理带分数"],scenes:[
+      {id:"add-like-bars",kind:"fraction-operation",eyebrow:"蛋糕合并",title:"1/5 + 2/5 = 3/5",body:"分母相同，每份大小相同，只需要把分子相加。",instruction:"选择结果。"},
+      {id:"add-keep-denominator",kind:"fraction-operation",eyebrow:"规则锁定",title:"分母保持不变",body:"同分母加法合并的是份数，不会改变每份的大小。",instruction:"完成 2/7 + 3/7。"},
+      {id:"add-common-denominator",kind:"fraction-operation",eyebrow:"通分桥",title:"1/4 + 1/6",body:"4 和 6 的最小公倍数是 12，把两个分数都变成十二分之几。",instruction:"选择通分后的算式。"},
+      {id:"add-mixed-to-improper",kind:"fraction-operation",eyebrow:"带化假",title:"2又1/4 变成 9/4",body:"整数 2 乘分母 4，再加分子 1，得到新分子 9。",instruction:"选择正确假分数。"},
+      {id:"add-four-steps",kind:"fraction-operation",eyebrow:"四步阶梯",title:"化假、通分、相加、化带",body:"复杂分数加法按固定顺序逐步完成，每一步都能检查。",instruction:"选择正确步骤顺序。"},
+      {id:"fraction-addition-quiz",kind:"quiz",eyebrow:"终局测验",title:"分数加法师认证",body:"完成三道分数加法题。",questions:[
+        {prompt:"1/5 + 2/5 = ?",options:["3/5","3/10","2/5"],answer:0,explanation:"分母不变，分子 1+2=3。"},
+        {prompt:"1/2 + 1/4 = ?",options:["2/6","3/4","1/6"],answer:1,explanation:"1/2=2/4，所以 2/4+1/4=3/4。"},
+        {prompt:"2又1/4 化成假分数是？",options:["3/4","8/4","9/4"],answer:2,explanation:"2×4+1=9。"},
+      ]},
+    ]
+  },
+  {
+    id:"fraction-subtraction",number:"20",title:"分数减法",summary:"从相同大小的份中拿走一部分，再把结果化到最简。",duration:"约 17 分钟",accent:"#b95e56",goals:["同分母相减","异分母通分","约分与带分数"],scenes:[
+      {id:"subtract-cookies",kind:"fraction-operation",eyebrow:"曲奇拿走",title:"3/4 - 1/4 = 2/4",body:"分母相同，直接用分子 3-1，得到 2/4。",instruction:"选择相减结果。"},
+      {id:"subtract-simplify",kind:"fraction-operation",eyebrow:"约分收尾",title:"2/4 = 1/2",body:"分子分母同时除以 2，得到最简分数。",instruction:"选择 2/4 的最简形式。"},
+      {id:"subtract-common-denominator",kind:"fraction-operation",eyebrow:"通分桥",title:"7/2 - 2/5",body:"2 和 5 的最小公倍数是 10，先化成 35/10 与 4/10。",instruction:"选择通分结果。"},
+      {id:"subtract-mixed",kind:"fraction-operation",eyebrow:"带分数变身",title:"3又1/2 变成 7/2",body:"整数 3 乘分母 2，再加分子 1。",instruction:"选择正确假分数。"},
+      {id:"subtract-four-steps",kind:"fraction-operation",eyebrow:"四步阶梯",title:"化假、通分、相减、化带",body:"分数减法与加法步骤相似，核心运算改为分子相减。",instruction:"选择正确步骤顺序。"},
+      {id:"fraction-subtraction-quiz",kind:"quiz",eyebrow:"终局测验",title:"分数减法师认证",body:"完成三道分数减法题。",questions:[
+        {prompt:"3/4 - 1/4 的最简结果？",options:["2/4","1/2","2/8"],answer:1,explanation:"先得 2/4，再约分为 1/2。"},
+        {prompt:"3/5 - 1/5 = ?",options:["2/5","2/10","4/5"],answer:0,explanation:"分母不变，分子 3-1=2。"},
+        {prompt:"1/2 - 1/4 = ?",options:["0","1/4","1/2"],answer:1,explanation:"1/2=2/4，2/4-1/4=1/4。"},
+      ]},
+    ]
+  },
 ];

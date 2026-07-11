@@ -7,7 +7,7 @@ export type Question = {
 
 export type LessonScene = {
   id: string;
-  kind: "count" | "story" | "match" | "place" | "build" | "sequence" | "visual-pattern" | "number-line" | "compare" | "order" | "estimate" | "rounding" | "multiples" | "prime" | "factor-tree" | "power" | "fraction" | "quiz";
+  kind: "count" | "story" | "match" | "place" | "build" | "sequence" | "visual-pattern" | "number-line" | "compare" | "order" | "estimate" | "rounding" | "multiples" | "prime" | "factor-tree" | "power" | "fraction" | "fraction-operation" | "quiz";
   eyebrow: string;
   title: string;
   body: string;
@@ -16,7 +16,7 @@ export type LessonScene = {
 };
 
 export type Course = {
-  id: "symbols" | "place-value" | "sequences" | "shape-patterns" | "signed-numbers" | "comparison" | "ordering" | "estimation" | "rounding" | "multiples" | "primes" | "prime-factors" | "squares" | "cubes" | "fractions";
+  id: "symbols" | "place-value" | "sequences" | "shape-patterns" | "signed-numbers" | "comparison" | "ordering" | "estimation" | "rounding" | "multiples" | "primes" | "prime-factors" | "squares" | "cubes" | "fractions" | "fraction-of-quantity" | "like-fraction-order" | "unit-fraction-order" | "fraction-addition" | "fraction-subtraction";
   number: string;
   title: string;
   summary: string;
