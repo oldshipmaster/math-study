@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { courses } from "./courses";
 
 describe("course catalog", () => {
-  it("ships forty complete open lessons", () => {
+  it("ships forty-five complete open lessons", () => {
     expect(courses.map((course) => course.id)).toEqual([
       "symbols",
       "place-value",
@@ -44,8 +44,13 @@ describe("course catalog", () => {
       "subtraction-partitioning",
       "shopkeeper-addition",
       "subtraction-expanded-column",
+      "subtraction-column",
+      "multiplication-scaling",
+      "factor-pairs",
+      "multiple-calculation",
+      "times-tables",
     ]);
-    expect(courses).toHaveLength(40);
+    expect(courses).toHaveLength(45);
     expect(courses[0].scenes).toHaveLength(5);
     expect(courses.slice(1).every((course) => course.scenes.length === 6)).toBe(true);
   });
@@ -83,5 +88,7 @@ describe("course catalog", () => {
     expect(courses[25].scenes.some((scene) => scene.kind === "ratio")).toBe(true);
     expect(courses[28].scenes.some((scene) => scene.kind === "ratio")).toBe(true);
     expect(courses[29].scenes.some((scene) => scene.kind === "addition")).toBe(true);
+    expect(courses[40].scenes.some((scene) => scene.kind === "subtraction")).toBe(true);
+    expect(courses.slice(41).every((course) => course.scenes.some((scene) => scene.kind === "multiplication"))).toBe(true);
   });
 });

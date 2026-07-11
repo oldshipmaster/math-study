@@ -224,6 +224,12 @@ a { color:inherit; text-decoration:none; }
 .partition-blocks { display:flex; gap:12px; }.partition-blocks span { min-width:90px; padding:22px; border:1px solid var(--ink); background:var(--accent); color:white; text-align:center; font:26px Georgia,serif; }
 .standard-column,.subtraction-model { padding:18px 26px; border:1px solid var(--ink); background:var(--paper); text-align:right; font:34px/1.5 Georgia,serif; }.standard-column hr { border:0; border-top:2px solid var(--ink); }
 .subtraction-path { width:min(360px,100%); display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap; }.subtraction-path span { display:flex; align-items:center; gap:6px; padding:10px; border:1px solid var(--line); background:var(--paper); }.subtraction-path b { width:22px; height:22px; display:grid; place-items:center; border-radius:50%; background:var(--accent); color:white; font-size:11px; }
+.subtraction-model { white-space:pre-line; }
+.scale-towers { height:160px; display:flex; align-items:flex-end; gap:16px; }.scale-towers span { width:70px; display:grid; place-items:center; border:2px solid var(--ink); background:var(--paper); transition:.3s; }.scale-towers span.active { background:var(--accent); color:white; animation:block-in .4s both; }
+.factor-array { display:grid; gap:7px; padding:18px; border:1px solid var(--ink); background:var(--paper); }.factor-array i { width:18px; height:18px; border-radius:50%; background:var(--accent); animation:block-in .3s both; }
+.multiply-track { width:100%; display:flex; justify-content:space-between; border-top:3px solid var(--ink); padding-top:14px; }.multiply-track span { color:var(--accent); font-weight:800; }
+.multiply-formula,.digit-sum { padding:18px 24px; border:1px solid var(--ink); background:var(--paper); text-align:center; white-space:pre-line; font:30px/1.6 Georgia,"Songti SC",serif; }.digit-sum b { color:var(--accent); }
+.times-grid { width:min(330px,100%); display:grid; grid-template-columns:repeat(9,1fr); gap:3px; }.times-grid i { aspect-ratio:1; display:grid; place-items:center; border:1px solid var(--line); background:var(--paper); font-style:normal; font-size:11px; }.times-grid i.active { background:var(--accent); color:white; transform:scale(1.18); animation:block-in .4s; }
 .result-card { text-align:center; align-items:center; }
 .result-ring { width:150px; height:150px; border:12px solid var(--gold); border-radius:50%; display:grid; place-items:center; font:56px Georgia,serif; }
 .result-ring small { font:14px sans-serif; margin-top:-45px; }

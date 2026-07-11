@@ -24,5 +24,10 @@ const configs:Record<string,{visual:React.ReactNode;options:{label:string}[];ans
   "expanded-to-200":{visual:path(["180","+20","200"]),options:["2","20","200"].map(label=>({label})),answer:"20"},
   "expanded-to-300":{visual:path(["200","+100","300"]),options:["10","100","124"].map(label=>({label})),answer:"100"},
   "expanded-subtract-total":{visual:path(["+2","+20","+100","+24"]),options:["136","146","156"].map(label=>({label})),answer:"146"},
+  "subtract-column-align":{visual:model("  932\n− 767"),options:["相同数位对齐","最左边对齐","任意排列"].map(label=>({label})),answer:"相同数位对齐"},
+  "subtract-borrow-ones":{visual:model("12 − 7"),options:["3","5","7"].map(label=>({label})),answer:"5"},
+  "subtract-borrow-tens":{visual:model("12 个十 − 6 个十"),options:["5","6","8"].map(label=>({label})),answer:"6"},
+  "subtract-column-total":{visual:model("  932\n− 767\n———"),options:["155","165","175"].map(label=>({label})),answer:"165"},
+  "subtract-column-check":{visual:model("932 − 767 = 165"),options:["767+165=932","932+165=767","767−165=932"].map(label=>({label})),answer:"767+165=932"},
 };
 export function SubtractionScene({scene,onComplete}:{scene:LessonScene;onComplete:(correct:number,attempts:number)=>void}){return <SceneChoice {...(configs[scene.id]??configs["subtract-ten-six"])} onComplete={onComplete} className="subtraction-scene"/>;}
