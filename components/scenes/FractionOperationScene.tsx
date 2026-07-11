@@ -14,5 +14,15 @@ const configs:Record<string,{visual:React.ReactNode;options:{label:string}[];ans
   "subtract-common-denominator":{visual:ladder(["找 10","7/2=35/10","2/5=4/10"]),options:["35/10 - 4/10","7/10 - 2/10","14/10 - 10/10"].map(label=>({label})),answer:"35/10 - 4/10"},
   "subtract-mixed":{visual:<div className="fraction-rule">3又1/2 → ?/2</div>,options:["6/2","7/2","8/2"].map(label=>({label})),answer:"7/2"},
   "subtract-four-steps":{visual:ladder(["?","?","?","?"]),options:["化假→通分→分子相减→化带","通分→化带→相减→化假","相减→通分→约分→化假"].map(label=>({label})),answer:"化假→通分→分子相减→化带"},
+  "multiply-half-quarter":{visual:<div className="fraction-area"><i/><i className="active"/><i/><i/></div>,options:["1/6","1/8","2/4"].map(label=>({label})),answer:"1/8"},
+  "multiply-integer":{visual:<div className="fraction-rule">1/2 + 1/2 + 1/2</div>,options:["3/2","3/6","1/6"].map(label=>({label})),answer:"3/2"},
+  "multiply-numerators":{visual:<div className="fraction-rule">2/5 × 2/3</div>,options:["4","7","10"].map(label=>({label})),answer:"4"},
+  "multiply-denominators":{visual:<div className="fraction-rule">2/5 × 2/3</div>,options:["4/15","4/8","2/15"].map(label=>({label})),answer:"4/15"},
+  "multiply-simplify":{visual:<div className="fraction-rule">2/3 × 3/4 = 6/12</div>,options:["1/2","2/4","3/6"].map(label=>({label})),answer:"1/2"},
+  "divide-quarter-three":{visual:<div className="fraction-area twelve">{Array.from({length:12},(_,i)=><i key={i} className={i===0?"active":""}/>)}</div>,options:["1/7","1/12","3/4"].map(label=>({label})),answer:"1/12"},
+  "divide-half-two":{visual:<div className="fraction-rule">1/2 ÷ 2</div>,options:["1/4","1","2/2"].map(label=>({label})),answer:"1/4"},
+  "division-to-multiply":{visual:ladder(["3=3/1","倒数=1/3","除号变乘号"]),options:["1/2×1/3","1/2×3/1","2/1×1/3"].map(label=>({label})),answer:"1/2×1/3"},
+  "divide-by-fraction":{visual:<div className="fraction-rule">2/3 ÷ 4/5</div>,options:["2/3×5/4","3/2×5/4","2/3×4/5"].map(label=>({label})),answer:"2/3×5/4"},
+  "division-check":{visual:<div className="fraction-rule">1/4 ÷ 3</div>,options:["1/12","3/4","4/3"].map(label=>({label})),answer:"1/12"},
 };
 export function FractionOperationScene({scene,onComplete}:{scene:LessonScene;onComplete:(correct:number,attempts:number)=>void}){return <SceneChoice {...(configs[scene.id]??configs["add-like-bars"])} onComplete={onComplete} className="fraction-operation-scene"/>;}
