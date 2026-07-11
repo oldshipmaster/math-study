@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { courses } from "./courses";
 
 describe("course catalog", () => {
-  it("ships sixty-five complete open lessons", () => {
+  it("ships seventy complete open lessons", () => {
     expect(courses.map((course) => course.id)).toEqual([
       "symbols",
       "place-value",
@@ -69,8 +69,13 @@ describe("course catalog", () => {
       "division-factor-pairs",
       "extended-short-division",
       "short-division",
+      "extended-long-division",
+      "long-division",
+      "remainder-conversion",
+      "decimal-division",
+      "operation-order",
     ]);
-    expect(courses).toHaveLength(65);
+    expect(courses).toHaveLength(70);
     expect(courses[0].scenes).toHaveLength(5);
     expect(courses.slice(1).every((course) => course.scenes.length === 6)).toBe(true);
   });
@@ -110,6 +115,7 @@ describe("course catalog", () => {
     expect(courses[29].scenes.some((scene) => scene.kind === "addition")).toBe(true);
     expect(courses[40].scenes.some((scene) => scene.kind === "subtraction")).toBe(true);
     expect(courses.slice(41, 56).every((course) => course.scenes.some((scene) => scene.kind === "multiplication"))).toBe(true);
-    expect(courses.slice(56).every((course) => course.scenes.some((scene) => scene.kind === "division"))).toBe(true);
+    expect(courses.slice(56, 69).every((course) => course.scenes.some((scene) => scene.kind === "division"))).toBe(true);
+    expect(courses[69].scenes.some((scene) => scene.kind === "operation-order")).toBe(true);
   });
 });
