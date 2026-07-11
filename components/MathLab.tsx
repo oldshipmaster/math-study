@@ -22,6 +22,8 @@ import { SubtractionScene } from "./scenes/SubtractionScene";
 import { MultiplicationScene } from "./scenes/MultiplicationScene";
 import { DivisionScene } from "./scenes/DivisionScene";
 import { OperationOrderScene } from "./scenes/OperationOrderScene";
+import { CalculatorScene } from "./scenes/CalculatorScene";
+import { MeasurementScene } from "./scenes/MeasurementScene";
 import { PowerScene } from "./scenes/PowerScene";
 import { PrimeScene } from "./scenes/PrimeScene";
 
@@ -170,7 +172,7 @@ function Home({ progress, onOpen, resetView, resetCourseId, resetMessage, onOpen
       </section>
 
       <section className="courses-section" id="courses">
-        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到运算顺序</h2></div><div className="section-side"><p>七十节完整互动课，从数字符号出发，探索长除法、小数除法与混合运算。</p><button className="mobile-reset" onClick={onOpenReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
+        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到长度与周长</h2></div><div className="section-side"><p>七十五节完整互动课，从数字符号出发，探索算术法则、测量单位与图形周长。</p><button className="mobile-reset" onClick={onOpenReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
         <div className="course-grid">
           {courses.map((course) => {
             const saved = progress.lessons[course.id];
@@ -238,6 +240,8 @@ function Scene({ scene, onComplete }: { scene: LessonScene; onComplete: (correct
   if (scene.kind === "multiplication") return <MultiplicationScene scene={scene} onComplete={onComplete} />;
   if (scene.kind === "division") return <DivisionScene scene={scene} onComplete={onComplete} />;
   if (scene.kind === "operation-order") return <OperationOrderScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "calculator") return <CalculatorScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "measurement") return <MeasurementScene scene={scene} onComplete={onComplete} />;
   return <Build scene={scene} onComplete={onComplete} />;
 }
 
