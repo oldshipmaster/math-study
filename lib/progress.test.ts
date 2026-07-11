@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it } from "vitest";
-import { loadProgress, saveProgress } from "./progress";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { clearProgress, loadProgress, saveProgress } from "./progress";
 
 describe("lesson progress", () => {
   beforeEach(() => localStorage.clear());
@@ -21,5 +21,19 @@ describe("lesson progress", () => {
   it("recovers from malformed local data", () => {
     localStorage.setItem("math-lab-progress", "not-json");
     expect(loadProgress()).toEqual({ lessons: {} });
+  });
+
+  it("clears the saved course progress", () => {
+    saveProgress({ lessons: { symbols: { sceneIndex: 4, completed: true, attempts: 3, correct: 3 } } });
+    clearProgress();
+    expect(loadProgress()).toEqual({ lessons: {} });
+  });
+
+  it("does not throw when storage deletion fails", () => {
+    const remove = vi.spyOn(Storage.prototype, "removeItem").mockImplementation(() => {
+      throw new Error("storage unavailable");
+    });
+    expect(() => clearProgress()).not.toThrow();
+    remove.mockRestore();
   });
 });

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { courses } from "../lib/courses";
 import type { Course, LessonScene, ProgressState } from "../lib/course-types";
-import { loadProgress, saveProgress } from "../lib/progress";
+import { clearProgress, loadProgress, saveProgress } from "../lib/progress";
 
 type View = "home" | "lesson";
 
@@ -13,6 +13,8 @@ export function MathLab() {
   const [sceneIndex, setSceneIndex] = useState(0);
   const [progress, setProgress] = useState<ProgressState>({ lessons: {} });
   const [ready, setReady] = useState(false);
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetDone, setResetDone] = useState(false);
 
   useEffect(() => {
     setProgress(loadProgress());
@@ -49,7 +51,13 @@ export function MathLab() {
   if (!ready) return <main className="loading">正在打开数学实验室…</main>;
 
   if (view === "home") {
-    return <Home progress={progress} onOpen={openCourse} />;
+    return <Home progress={progress} onOpen={openCourse} onReset={() => setResetOpen(true)} resetDone={resetDone} resetOpen={resetOpen} onCancelReset={() => setResetOpen(false)} onConfirmReset={() => {
+      clearProgress();
+      setProgress({ lessons: {} });
+      setSceneIndex(0);
+      setResetOpen(false);
+      setResetDone(true);
+    }} />;
   }
 
   return (
@@ -68,14 +76,14 @@ export function MathLab() {
   );
 }
 
-function Home({ progress, onOpen }: { progress: ProgressState; onOpen: (id: Course["id"]) => void }) {
+function Home({ progress, onOpen, onReset, resetDone, resetOpen, onCancelReset, onConfirmReset }: { progress: ProgressState; onOpen: (id: Course["id"]) => void; onReset: () => void; resetDone: boolean; resetOpen: boolean; onCancelReset: () => void; onConfirmReset: () => void }) {
   const completed = Object.values(progress.lessons).filter((item) => item?.completed).length;
   return (
     <main className="site-shell">
       <nav className="topbar" aria-label="主导航">
         <a className="brand" href="#top" aria-label="数感实验室首页"><span>∑</span> 数感实验室</a>
         <div className="nav-links"><a href="#courses">课程</a><a href="#method">学习方法</a></div>
-        <div className="progress-pill">已完成 {completed}/2 课</div>
+        <div className="progress-actions"><div className="progress-pill">已完成 {completed}/2 课</div><button className="reset-link" onClick={onReset} aria-label="重置课程进度">重置进度</button></div>
       </nav>
 
       <section className="hero" id="top">
@@ -104,7 +112,7 @@ function Home({ progress, onOpen }: { progress: ProgressState; onOpen: (id: Cour
       </section>
 
       <section className="courses-section" id="courses">
-        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到位值</h2></div><p>两节完整互动课，建立整个数学世界的地基。</p></div>
+        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到位值</h2></div><div className="section-side"><p>两节完整互动课，建立整个数学世界的地基。</p><button className="mobile-reset" onClick={onReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
         <div className="course-grid">
           {courses.map((course) => {
             const saved = progress.lessons[course.id];
@@ -124,6 +132,8 @@ function Home({ progress, onOpen }: { progress: ProgressState; onOpen: (id: Cour
 
       <section className="coming-soon"><p className="kicker">接下来</p><div className="chapter-row"><span>03</span><b>数列与规律</b><small>即将开放</small></div><div className="chapter-row"><span>04</span><b>数列与图形</b><small>即将开放</small></div><div className="chapter-row"><span>05</span><b>正数与负数</b><small>即将开放</small></div></section>
       <footer><span className="brand"><span>∑</span> 数感实验室</span><p>每一个数字，都值得亲手发现。</p></footer>
+      {resetDone && <div className="reset-toast" role="status">课程进度已重置</div>}
+      {resetOpen && <div className="dialog-backdrop" onMouseDown={onCancelReset}><div className="reset-dialog" role="dialog" aria-modal="true" aria-labelledby="reset-dialog-title" onMouseDown={(event) => event.stopPropagation()}><p className="kicker">重新开始</p><h2 id="reset-dialog-title">重置全部课程进度？</h2><p>“数字符号”和“位值”的场景进度、答题次数与结课记录都会清空。此操作无法撤销。</p><div className="dialog-actions"><button className="secondary" onClick={onCancelReset}>取消</button><button className="danger" onClick={onConfirmReset}>确认重置</button></div></div></div>}
     </main>
   );
 }

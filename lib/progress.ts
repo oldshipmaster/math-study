@@ -21,3 +21,12 @@ export function saveProgress(progress: ProgressState) {
     // Learning remains usable when storage is unavailable.
   }
 }
+
+export function clearProgress() {
+  if (typeof localStorage === "undefined") return;
+  try {
+    localStorage.removeItem(KEY);
+  } catch {
+    // The in-memory reset still lets a learner start over in this session.
+  }
+}
