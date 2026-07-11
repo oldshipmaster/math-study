@@ -26,6 +26,8 @@ export function MathLab() {
   const [resetMessage, setResetMessage] = useState("");
 
   useEffect(() => {
+    // Client-only storage is intentionally hydrated after the server-safe loading view mounts.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setProgress(loadProgress());
     setReady(true);
   }, []);
@@ -91,6 +93,7 @@ export function MathLab() {
 
   return (
     <Lesson
+      key={`${course.id}-${scene.id}`}
       course={course}
       scene={scene}
       sceneIndex={sceneIndex}
@@ -185,16 +188,12 @@ function Home({ progress, onOpen, resetView, resetCourseId, resetMessage, onOpen
 function Lesson({ course, scene, sceneIndex, onExit, onPrevious, onNext }: { course: Course; scene: LessonScene; sceneIndex: number; onExit: () => void; onPrevious: () => void; onNext: (correct: number, attempts: number) => void }) {
   const [complete, setComplete] = useState(false);
   const [result, setResult] = useState({ correct: 0, attempts: 0 });
-  const key = `${course.id}-${scene.id}`;
-
-  useEffect(() => { setComplete(false); setResult({ correct: 0, attempts: 0 }); }, [key]);
-
   return (
     <main className="lesson-shell" style={{ "--accent": course.accent } as React.CSSProperties}>
       <header className="lesson-header"><button className="icon-button" onClick={onExit} aria-label="课程目录">←</button><div><p>第 {course.number} 课</p><strong>{course.title}</strong></div><div className="lesson-progress"><span>{sceneIndex + 1} / {course.scenes.length}</span><div>{course.scenes.map((item, index) => <i className={index <= sceneIndex ? "active" : ""} key={item.id} />)}</div></div></header>
       <div className="lesson-layout">
         <aside className="lesson-aside"><p className="kicker">本课路线</p>{course.scenes.map((item, index) => <div className={`scene-link ${index === sceneIndex ? "current" : ""} ${index < sceneIndex ? "done" : ""}`} key={item.id}><span>{index < sceneIndex ? "✓" : index + 1}</span><p>{item.eyebrow}<b>{item.title}</b></p></div>)}</aside>
-        <section className="stage-wrap"><div className="stage-title"><p className="kicker">{scene.eyebrow}</p><h1>{scene.title}</h1><p>{scene.body}</p></div><Scene key={key} scene={scene} onComplete={(correct, attempts) => { setComplete(true); setResult({ correct, attempts }); }} /></section>
+        <section className="stage-wrap"><div className="stage-title"><p className="kicker">{scene.eyebrow}</p><h1>{scene.title}</h1><p>{scene.body}</p></div><Scene scene={scene} onComplete={(correct, attempts) => { setComplete(true); setResult({ correct, attempts }); }} /></section>
       </div>
       <footer className="lesson-controls"><button className="secondary" onClick={onPrevious} disabled={sceneIndex === 0}>← 上一步</button><p aria-live="polite">{complete ? "很好，实验完成！" : scene.instruction}</p><button className="primary" onClick={() => onNext(result.correct, result.attempts)} disabled={!complete}>继续 <span>→</span></button></footer>
     </main>
