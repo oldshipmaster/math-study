@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { courses } from "./courses";
 
 describe("course catalog", () => {
-  it("ships seventy-five complete open lessons", () => {
+  it("ships eighty complete open lessons", () => {
     expect(courses.map((course) => course.id)).toEqual([
       "symbols",
       "place-value",
@@ -79,8 +79,13 @@ describe("course catalog", () => {
       "length",
       "length-calculation",
       "perimeter",
+      "perimeter-formulas",
+      "area",
+      "area-estimation",
+      "triangle-area",
+      "parallelogram-area",
     ]);
-    expect(courses).toHaveLength(75);
+    expect(courses).toHaveLength(80);
     expect(courses[0].scenes).toHaveLength(5);
     expect(courses.slice(1).every((course) => course.scenes.length === 6)).toBe(true);
   });
