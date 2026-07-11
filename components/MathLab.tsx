@@ -7,6 +7,11 @@ import { clearCourseProgress, clearProgress, loadProgress, saveProgress } from "
 import { NumberLineScene } from "./scenes/NumberLineScene";
 import { SequenceScene } from "./scenes/SequenceScene";
 import { VisualPatternScene } from "./scenes/VisualPatternScene";
+import { CompareScene } from "./scenes/CompareScene";
+import { EstimateScene } from "./scenes/EstimateScene";
+import { MultiplesScene } from "./scenes/MultiplesScene";
+import { OrderScene } from "./scenes/OrderScene";
+import { RoundingScene } from "./scenes/RoundingScene";
 
 type View = "home" | "lesson";
 
@@ -150,7 +155,7 @@ function Home({ progress, onOpen, resetView, resetCourseId, resetMessage, onOpen
       </section>
 
       <section className="courses-section" id="courses">
-        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到正负数</h2></div><div className="section-side"><p>五节完整互动课，从数字符号出发，建立规律与数轴思维。</p><button className="mobile-reset" onClick={onOpenReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
+        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到倍数</h2></div><div className="section-side"><p>十节完整互动课，从数字符号出发，建立比较、估算与倍数思维。</p><button className="mobile-reset" onClick={onOpenReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
         <div className="course-grid">
           {courses.map((course) => {
             const saved = progress.lessons[course.id];
@@ -170,9 +175,9 @@ function Home({ progress, onOpen, resetView, resetCourseId, resetMessage, onOpen
 
       <footer><span className="brand"><span>∑</span> 数感实验室</span><p>每一个数字，都值得亲手发现。</p></footer>
       {resetMessage && <div className="reset-toast" role="status">{resetMessage}</div>}
-      {resetView === "manager" && !resetCourseId && <div className="dialog-backdrop" onMouseDown={onCancelReset}><div className="reset-dialog reset-manager" role="dialog" aria-modal="true" aria-labelledby="reset-manager-title" onMouseDown={(event) => event.stopPropagation()}><p className="kicker">重新开始</p><h2 id="reset-manager-title">管理课程进度</h2><p>选择一节课程单独重置。其他课程的学习记录不会改变。</p><div className="reset-course-list">{courses.map((item) => { const saved = progress.lessons[item.id]; const percent = saved?.completed ? 100 : Math.round(((saved?.sceneIndex ?? 0) / item.scenes.length) * 100); return <div key={item.id}><span><b>{item.number} · {item.title}</b><small>{saved ? `${percent}%` : "尚未开始"}</small></span><button onClick={() => onChooseCourseReset(item.id)} aria-label={`重置${item.title}`} disabled={!saved}>重置本课</button></div>; })}</div><div className="reset-all-zone"><div><b>重置全部课程</b><small>清空 5 节课程的所有记录</small></div><button className="danger-outline" onClick={onChooseAllReset}>重置全部课程</button></div><div className="dialog-actions"><button className="secondary" onClick={onCancelReset}>关闭</button></div></div></div>}
+      {resetView === "manager" && !resetCourseId && <div className="dialog-backdrop" onMouseDown={onCancelReset}><div className="reset-dialog reset-manager" role="dialog" aria-modal="true" aria-labelledby="reset-manager-title" onMouseDown={(event) => event.stopPropagation()}><p className="kicker">重新开始</p><h2 id="reset-manager-title">管理课程进度</h2><p>选择一节课程单独重置。其他课程的学习记录不会改变。</p><div className="reset-course-list">{courses.map((item) => { const saved = progress.lessons[item.id]; const percent = saved?.completed ? 100 : Math.round(((saved?.sceneIndex ?? 0) / item.scenes.length) * 100); return <div key={item.id}><span><b>{item.number} · {item.title}</b><small>{saved ? `${percent}%` : "尚未开始"}</small></span><button onClick={() => onChooseCourseReset(item.id)} aria-label={`重置${item.title}`} disabled={!saved}>重置本课</button></div>; })}</div><div className="reset-all-zone"><div><b>重置全部课程</b><small>清空 {courses.length} 节课程的所有记录</small></div><button className="danger-outline" onClick={onChooseAllReset}>重置全部课程</button></div><div className="dialog-actions"><button className="secondary" onClick={onCancelReset}>关闭</button></div></div></div>}
       {resetCourseId && <div className="dialog-backdrop" onMouseDown={onCancelReset}><div className="reset-dialog" role="dialog" aria-modal="true" aria-labelledby="reset-course-title" onMouseDown={(event) => event.stopPropagation()}><p className="kicker">单课重置</p><h2 id="reset-course-title">重置《{courses.find((item) => item.id === resetCourseId)?.title}》？</h2><p>只清空本课的场景、答题和结课记录，其他课程不受影响。</p><div className="dialog-actions"><button className="secondary" onClick={onCancelReset}>取消</button><button className="danger" onClick={onConfirmCourseReset}>确认重置本课</button></div></div></div>}
-      {resetView === "confirm-all" && <div className="dialog-backdrop" onMouseDown={onCancelReset}><div className="reset-dialog" role="dialog" aria-modal="true" aria-labelledby="reset-all-title" onMouseDown={(event) => event.stopPropagation()}><p className="kicker">危险操作</p><h2 id="reset-all-title">重置全部课程进度？</h2><p>5 节课程的场景进度、答题次数与结课记录都会清空。此操作无法撤销。</p><div className="dialog-actions"><button className="secondary" onClick={onCancelReset}>取消</button><button className="danger" onClick={onConfirmAllReset}>确认重置全部</button></div></div></div>}
+      {resetView === "confirm-all" && <div className="dialog-backdrop" onMouseDown={onCancelReset}><div className="reset-dialog" role="dialog" aria-modal="true" aria-labelledby="reset-all-title" onMouseDown={(event) => event.stopPropagation()}><p className="kicker">危险操作</p><h2 id="reset-all-title">重置全部课程进度？</h2><p>{courses.length} 节课程的场景进度、答题次数与结课记录都会清空。此操作无法撤销。</p><div className="dialog-actions"><button className="secondary" onClick={onCancelReset}>取消</button><button className="danger" onClick={onConfirmAllReset}>确认重置全部</button></div></div></div>}
     </main>
   );
 }
@@ -205,6 +210,11 @@ function Scene({ scene, onComplete }: { scene: LessonScene; onComplete: (correct
   if (scene.kind === "sequence") return <SequenceScene scene={scene} onComplete={onComplete} />;
   if (scene.kind === "visual-pattern") return <VisualPatternScene scene={scene} onComplete={onComplete} />;
   if (scene.kind === "number-line") return <NumberLineScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "compare") return <CompareScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "order") return <OrderScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "estimate") return <EstimateScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "rounding") return <RoundingScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "multiples") return <MultiplesScene scene={scene} onComplete={onComplete} />;
   return <Build scene={scene} onComplete={onComplete} />;
 }
 
