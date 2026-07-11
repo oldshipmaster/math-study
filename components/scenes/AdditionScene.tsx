@@ -33,5 +33,10 @@ const configs:Record<string,{visual:React.ReactNode;options:{label:string}[];ans
   "column-tens":{visual:<div className="expanded-column">80 + 50</div>,options:["13","130","800"].map(label=>({label})),answer:"130"},
   "column-hundreds":{visual:<div className="expanded-column">300 + 100</div>,options:["4","40","400"].map(label=>({label})),answer:"400"},
   "column-total":{visual:<div className="expanded-column">12 + 130 + 400</div>,options:["432","542","552"].map(label=>({label})),answer:"542"},
+  "standard-align":{visual:<div className="standard-column">4368<br/>+2795</div>,options:["相同数位对齐","最左边对齐","任意排列"].map(label=>({label})),answer:"相同数位对齐"},
+  "standard-ones":{visual:<div className="standard-column">8 + 5 = 13</div>,options:["1","3","13"].map(label=>({label})),answer:"3"},
+  "standard-tens":{visual:<div className="standard-column">6 + 9 + 1 = 16</div>,options:["5","6","16"].map(label=>({label})),answer:"6"},
+  "standard-total":{visual:<div className="standard-column">4368<br/>+2795<hr/>?</div>,options:["7063","7163","7263"].map(label=>({label})),answer:"7163"},
+  "standard-decimal":{visual:<div className="standard-column">38.92<br/>+ 5.89</div>,options:["43.81","44.81","44.71"].map(label=>({label})),answer:"44.81"},
 };
 export function AdditionScene({scene,onComplete}:{scene:LessonScene;onComplete:(correct:number,attempts:number)=>void}){return <SceneChoice {...(configs[scene.id]??configs["add-oranges"])} onComplete={onComplete} className="addition-scene"/>;}
