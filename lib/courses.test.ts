@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { courses } from "./courses";
 
 describe("course catalog", () => {
-  it("ships ten complete open lessons", () => {
+  it("ships fifteen complete open lessons", () => {
     expect(courses.map((course) => course.id)).toEqual([
       "symbols",
       "place-value",
@@ -14,8 +14,13 @@ describe("course catalog", () => {
       "estimation",
       "rounding",
       "multiples",
+      "primes",
+      "prime-factors",
+      "squares",
+      "cubes",
+      "fractions",
     ]);
-    expect(courses.map((course) => course.scenes.length)).toEqual([5, 6, 6, 6, 6, 6, 6, 6, 6, 6]);
+    expect(courses.map((course) => course.scenes.length)).toEqual([5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]);
   });
 
   it("ends each lesson with a three-question quiz", () => {
@@ -35,5 +40,10 @@ describe("course catalog", () => {
     expect(courses[7].scenes.some((scene) => scene.kind === "estimate")).toBe(true);
     expect(courses[8].scenes.some((scene) => scene.kind === "rounding")).toBe(true);
     expect(courses[9].scenes.some((scene) => scene.kind === "multiples")).toBe(true);
+    expect(courses[10].scenes.some((scene) => scene.kind === "prime")).toBe(true);
+    expect(courses[11].scenes.some((scene) => scene.kind === "factor-tree")).toBe(true);
+    expect(courses[12].scenes.some((scene) => scene.kind === "power")).toBe(true);
+    expect(courses[13].scenes.some((scene) => scene.kind === "power")).toBe(true);
+    expect(courses[14].scenes.some((scene) => scene.kind === "fraction")).toBe(true);
   });
 });

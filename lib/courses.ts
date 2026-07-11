@@ -210,4 +210,74 @@ export const courses: Course[] = [
       ] },
     ],
   },
+  {
+    id: "primes", number: "11", title: "质数", summary: "打开因数门，筛出只能被 1 和自己整除的特殊数字。", duration: "约 15 分钟", accent: "#b65368", goals: ["理解质数定义", "知道 1 不是质数", "用整除筛选质数"], scenes: [
+      { id: "prime-gate", kind: "prime", eyebrow: "因数门卫", title: "只有两把钥匙", body: "质数是大于 1 的整数，并且只有 1 和它本身两个正因数。", instruction: "选择只有两个正因数的数。" },
+      { id: "two-vs-four", kind: "prime", eyebrow: "对比实验", title: "2 是质数，4 不是", body: "2 只能被 1 和 2 整除；4 还可以被 2 整除，所以 4 是合数。", instruction: "选择 4 不是质数的原因。" },
+      { id: "prime-sieve", kind: "prime", eyebrow: "质数涂格", title: "把合数筛出去", body: "先划去 1，再划去 2、3、5、7 的倍数，留下的数字就是 100 以内的质数。", instruction: "从 15、17、21 中选出质数。" },
+      { id: "prime-check", kind: "prime", eyebrow: "快速筛选", title: "试除 2、3、5、7", body: "判断 100 以内较大的数时，可以依次试除较小质数。", instruction: "判断 83 是否为质数。" },
+      { id: "prime-forever", kind: "prime", eyebrow: "无限星河", title: "质数没有最大一个", body: "质数有无穷多个，无论找到多大的质数，后面仍然还有新的质数。", instruction: "选择正确的说法。" },
+      { id: "primes-quiz", kind: "quiz", eyebrow: "终局测验", title: "质数侦探认证", body: "完成三道质数筛选题。", questions: [
+        { prompt: "下面哪个数是质数？", options: ["1", "7", "9"], answer: 1, explanation: "7 只有 1 和 7 两个正因数。" },
+        { prompt: "为什么 15 不是质数？", options: ["它是奇数", "它能被 3 和 5 整除", "它大于 10"], answer: 1, explanation: "15 除了 1 和自身，还有 3、5 两个因数。" },
+        { prompt: "关于质数，哪句话正确？", options: ["1 是质数", "质数有无穷多个", "所有奇数都是质数"], answer: 1, explanation: "质数有无穷多个；1 不是质数，9 等奇数也不是质数。" },
+      ] },
+    ]
+  },
+  {
+    id: "prime-factors", number: "12", title: "质因数", summary: "把合数拆成不可再拆的质数积木，长出一棵因数树。", duration: "约 16 分钟", accent: "#6572aa", goals: ["认识质因数", "绘制因数树", "写出质因数乘积"], scenes: [
+      { id: "prime-blocks", kind: "factor-tree", eyebrow: "数字积木", title: "不可再拆的质数块", body: "一个数的因数如果同时是质数，就叫这个数的质因数。", instruction: "选择 30 的一个质因数。" },
+      { id: "factor-thirty", kind: "factor-tree", eyebrow: "分解 30", title: "30 = 2 × 3 × 5", body: "先把 30 分成 2 和 15，再把 15 分成 3 和 5，叶子都是质数。", instruction: "选择完整的质因数分解。" },
+      { id: "factor-seventy-two", kind: "factor-tree", eyebrow: "因数树", title: "让 72 长出枝条", body: "72 可以先分成 8 和 9，再继续分解，直到每个叶子都是质数。", instruction: "选择 72 的下一层分解。" },
+      { id: "circle-leaves", kind: "factor-tree", eyebrow: "圈出叶子", title: "只收集质数叶片", body: "因数树没有继续分枝的质数叶子，组成原数的质因数乘积。", instruction: "选择 72 的所有质因数。" },
+      { id: "same-product", kind: "factor-tree", eyebrow: "不同路径", title: "树形不同，果实相同", body: "72 可以先拆成 8×9，也可以拆成 6×12，最终都会得到 2×2×2×3×3。", instruction: "判断两棵树的结果。" },
+      { id: "prime-factors-quiz", kind: "quiz", eyebrow: "终局测验", title: "因数树园丁认证", body: "完成三道质因数分解题。", questions: [
+        { prompt: "30 的质因数有哪些？", options: ["2、3、5", "1、6、30", "3、10"], answer: 0, explanation: "30 = 2 × 3 × 5，三个因数都是质数。" },
+        { prompt: "12 的质因数分解是？", options: ["2×6", "3×4", "2×2×3"], answer: 2, explanation: "2、2、3 都是质数。" },
+        { prompt: "因数树何时停止分解？", options: ["叶子都是质数时", "出现偶数时", "画满三层时"], answer: 0, explanation: "质数无法再拆成两个大于 1 的整数因数。" },
+      ] },
+    ]
+  },
+  {
+    id: "squares", number: "13", title: "平方数", summary: "用小方块铺满正方形，看见一个数与自己相乘。", duration: "约 14 分钟", accent: "#368b82", goals: ["理解平方符号", "连接点阵与乘法", "识别常见平方数"], scenes: [
+      { id: "square-two", kind: "power", eyebrow: "方块拼图", title: "2² 是一个 2×2 正方形", body: "2² 表示 2×2，用 4 个小方块正好拼成边长为 2 的正方形。", instruction: "选择 2² 的结果。" },
+      { id: "square-three", kind: "power", eyebrow: "扩展点阵", title: "3² = 9", body: "边长为 3 的正方形有 3 行、每行 3 个，共 9 个方块。", instruction: "选择方块总数。" },
+      { id: "square-table", kind: "power", eyebrow: "平方表", title: "行列相交找到答案", body: "在横轴和纵轴都找到 7，交点 49 就是 7²。", instruction: "选择 7²。" },
+      { id: "square-sequence", kind: "power", eyebrow: "平方数列", title: "1、4、9、16、25", body: "平方数依次来自 1²、2²、3²、4²、5²。", instruction: "选择下一个平方数。" },
+      { id: "square-parity", kind: "power", eyebrow: "奇偶观察", title: "奇数平方仍是奇数", body: "奇数乘奇数得到奇数，偶数乘偶数得到偶数。", instruction: "判断 9² 的奇偶性。" },
+      { id: "squares-quiz", kind: "quiz", eyebrow: "终局测验", title: "平方建筑师认证", body: "完成三道平方数挑战。", questions: [
+        { prompt: "6² 等于多少？", options: ["12", "36", "216"], answer: 1, explanation: "6² = 6 × 6 = 36。" },
+        { prompt: "下面哪个是平方数？", options: ["20", "25", "30"], answer: 1, explanation: "25 = 5²。" },
+        { prompt: "边长 4 的正方形点阵有几个点？", options: ["8", "12", "16"], answer: 2, explanation: "4 × 4 = 16。" },
+      ] },
+    ]
+  },
+  {
+    id: "cubes", number: "14", title: "立方数", summary: "把正方形一层层叠成立方体，理解三个相同因数相乘。", duration: "约 14 分钟", accent: "#b77532", goals: ["理解立方符号", "用分层计算体积", "识别常见立方数"], scenes: [
+      { id: "cube-two", kind: "power", eyebrow: "立体积木", title: "2³ = 8", body: "2³ 表示 2×2×2，需要 8 个单位小立方体。", instruction: "选择 2³ 的结果。" },
+      { id: "cube-layers", kind: "power", eyebrow: "逐层组装", title: "每层 4 个，共 2 层", body: "2×2 的一层有 4 块，叠 2 层就是 8 块。", instruction: "选择正确的分层算式。" },
+      { id: "cube-three", kind: "power", eyebrow: "魔方实验", title: "3³ = 27", body: "实心 3×3×3 立方体有 27 个小方块。", instruction: "选择实心立方体的方块数。" },
+      { id: "square-or-cube", kind: "power", eyebrow: "概念辨析", title: "平方还是立方？", body: "平方有两个相同因数，立方有三个相同因数。", instruction: "选择表示 4³ 的算式。" },
+      { id: "cube-sequence", kind: "power", eyebrow: "立方阶梯", title: "1、8、27、64", body: "这些数依次是 1³、2³、3³、4³。", instruction: "选择下一个立方数。" },
+      { id: "cubes-quiz", kind: "quiz", eyebrow: "终局测验", title: "立方工程师认证", body: "完成三道立方数挑战。", questions: [
+        { prompt: "3³ 等于多少？", options: ["9", "18", "27"], answer: 2, explanation: "3×3×3 = 27。" },
+        { prompt: "哪个算式表示 5³？", options: ["5×3", "5×5", "5×5×5"], answer: 2, explanation: "立方表示三个相同因数相乘。" },
+        { prompt: "2×2×2 立方体有几层？", options: ["2 层", "4 层", "8 层"], answer: 0, explanation: "每层 2×2 共 4 块，叠 2 层。" },
+      ] },
+    ]
+  },
+  {
+    id: "fractions", number: "15", title: "分数", summary: "公平切分一个整体，用分子和分母说清拥有其中几份。", duration: "约 16 分钟", accent: "#d25f57", goals: ["理解平均分", "认识分子分母", "比较单位分数"], scenes: [
+      { id: "fair-share", kind: "fraction", eyebrow: "公平切分", title: "四个人平分一个蛋糕", body: "把整体平均分成 4 份，每人得到其中 1 份，也就是 1/4。", instruction: "选择每个人得到的分数。" },
+      { id: "fraction-parts", kind: "fraction", eyebrow: "分数结构", title: "分子、分母和分数线", body: "分母表示整体平均分成几份，分子表示取了其中几份。", instruction: "选择 3/8 中的分母。" },
+      { id: "shade-three-eighths", kind: "fraction", eyebrow: "涂色挑战", title: "涂出八份中的三份", body: "3/8 表示整体平均分成 8 份，取其中 3 份。", instruction: "选择正确的涂色数量。" },
+      { id: "half-quarter", kind: "fraction", eyebrow: "大小比较", title: "1/2 比 1/4 大", body: "同一个整体分得越细，每一份越小。", instruction: "选择更大的分数。" },
+      { id: "unit-fractions", kind: "fraction", eyebrow: "单位分数赛跑", title: "分子都是 1，分母越大越小", body: "比较 1/3、1/5、1/8 时，分母最小的 1/3 最大。", instruction: "选择最大的单位分数。" },
+      { id: "fractions-quiz", kind: "quiz", eyebrow: "终局测验", title: "公平分配师认证", body: "完成三道分数挑战。", questions: [
+        { prompt: "一根面包平均分成 8 段，每段占几分之几？", options: ["1/8", "1/4", "8/1"], answer: 0, explanation: "整体分成 8 份，每份是 1/8。" },
+        { prompt: "3/8 中的分子是？", options: ["3", "8", "11"], answer: 0, explanation: "分数线上面的 3 是分子。" },
+        { prompt: "哪个单位分数最大？", options: ["1/2", "1/4", "1/6"], answer: 0, explanation: "同一整体中，分母越小，每份越大。" },
+      ] },
+    ]
+  },
 ];
