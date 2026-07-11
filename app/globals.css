@@ -234,6 +234,9 @@ a { color:inherit; text-decoration:none; }
 .place-columns { display:grid; grid-template-columns:repeat(6,1fr); border:1px solid var(--ink); }.place-columns span { padding:14px 9px; border-right:1px solid var(--line); background:var(--paper); text-align:center; }.place-columns span:nth-child(5) { color:var(--accent); font-weight:900; }
 .product-grid { width:min(360px,100%); display:grid; grid-template-columns:repeat(2,1fr); border:2px solid var(--ink); }.product-grid span { min-height:70px; display:grid; place-items:center; padding:10px; border:1px solid var(--ink); background:var(--paper); text-align:center; font:20px Georgia,"Songti SC",serif; }.product-grid span:nth-child(4n+1),.product-grid span:nth-child(4n+4) { background:color-mix(in srgb,var(--accent) 18%,var(--paper)); }
 @keyframes shift-pulse { 50% { transform:translateX(-7px); color:var(--accent); } }
+.multiply-column { min-width:210px; display:grid; justify-items:end; padding:18px 28px; border:1px solid var(--ink); background:var(--paper); font:31px/1.35 ui-monospace,SFMono-Regular,monospace; }.multiply-column span { min-width:150px; text-align:right; white-space:pre; }.multiply-column span.active { color:var(--accent); font-weight:900; animation:column-flash .5s both; }
+.decimal-check { padding:18px 24px; border:1px solid var(--ink); background:var(--paper); text-align:center; font:28px/1.7 Georgia,"Songti SC",serif; }.decimal-check b { color:var(--accent); }
+@keyframes column-flash { from { transform:translateY(-8px); opacity:.25; } }
 .result-card { text-align:center; align-items:center; }
 .result-ring { width:150px; height:150px; border:12px solid var(--gold); border-radius:50%; display:grid; place-items:center; font:56px Georgia,serif; }
 .result-ring small { font:14px sans-serif; margin-top:-45px; }
