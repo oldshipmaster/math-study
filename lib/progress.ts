@@ -30,3 +30,11 @@ export function clearProgress() {
     // The in-memory reset still lets a learner start over in this session.
   }
 }
+
+export function clearCourseProgress(progress: ProgressState, courseId: keyof ProgressState["lessons"]): ProgressState {
+  const lessons = { ...progress.lessons };
+  delete lessons[courseId];
+  const next = { lessons };
+  saveProgress(next);
+  return next;
+}

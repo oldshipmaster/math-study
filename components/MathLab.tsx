@@ -3,7 +3,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { courses } from "../lib/courses";
 import type { Course, LessonScene, ProgressState } from "../lib/course-types";
-import { clearProgress, loadProgress, saveProgress } from "../lib/progress";
+import { clearCourseProgress, clearProgress, loadProgress, saveProgress } from "../lib/progress";
+import { NumberLineScene } from "./scenes/NumberLineScene";
+import { SequenceScene } from "./scenes/SequenceScene";
+import { VisualPatternScene } from "./scenes/VisualPatternScene";
 
 type View = "home" | "lesson";
 
@@ -13,8 +16,9 @@ export function MathLab() {
   const [sceneIndex, setSceneIndex] = useState(0);
   const [progress, setProgress] = useState<ProgressState>({ lessons: {} });
   const [ready, setReady] = useState(false);
-  const [resetOpen, setResetOpen] = useState(false);
-  const [resetDone, setResetDone] = useState(false);
+  const [resetView, setResetView] = useState<"closed" | "manager" | "confirm-all">("closed");
+  const [resetCourseId, setResetCourseId] = useState<Course["id"] | null>(null);
+  const [resetMessage, setResetMessage] = useState("");
 
   useEffect(() => {
     setProgress(loadProgress());
@@ -51,13 +55,33 @@ export function MathLab() {
   if (!ready) return <main className="loading">正在打开数学实验室…</main>;
 
   if (view === "home") {
-    return <Home progress={progress} onOpen={openCourse} onReset={() => setResetOpen(true)} resetDone={resetDone} resetOpen={resetOpen} onCancelReset={() => setResetOpen(false)} onConfirmReset={() => {
-      clearProgress();
-      setProgress({ lessons: {} });
-      setSceneIndex(0);
-      setResetOpen(false);
-      setResetDone(true);
-    }} />;
+    return <Home
+      progress={progress}
+      onOpen={openCourse}
+      resetView={resetView}
+      resetCourseId={resetCourseId}
+      resetMessage={resetMessage}
+      onOpenReset={() => setResetView("manager")}
+      onCancelReset={() => { setResetView("closed"); setResetCourseId(null); }}
+      onChooseCourseReset={(id) => setResetCourseId(id)}
+      onChooseAllReset={() => setResetView("confirm-all")}
+      onConfirmCourseReset={() => {
+        if (!resetCourseId) return;
+        const title = courses.find((item) => item.id === resetCourseId)?.title ?? "本课";
+        setProgress(clearCourseProgress(progress, resetCourseId));
+        setSceneIndex(0);
+        setResetMessage(`《${title}》进度已重置`);
+        setResetView("closed");
+        setResetCourseId(null);
+      }}
+      onConfirmAllReset={() => {
+        clearProgress();
+        setProgress({ lessons: {} });
+        setSceneIndex(0);
+        setResetView("closed");
+        setResetMessage("全部课程进度已重置");
+      }}
+    />;
   }
 
   return (
@@ -76,14 +100,28 @@ export function MathLab() {
   );
 }
 
-function Home({ progress, onOpen, onReset, resetDone, resetOpen, onCancelReset, onConfirmReset }: { progress: ProgressState; onOpen: (id: Course["id"]) => void; onReset: () => void; resetDone: boolean; resetOpen: boolean; onCancelReset: () => void; onConfirmReset: () => void }) {
+type HomeProps = {
+  progress: ProgressState;
+  onOpen: (id: Course["id"]) => void;
+  resetView: "closed" | "manager" | "confirm-all";
+  resetCourseId: Course["id"] | null;
+  resetMessage: string;
+  onOpenReset: () => void;
+  onCancelReset: () => void;
+  onChooseCourseReset: (id: Course["id"]) => void;
+  onChooseAllReset: () => void;
+  onConfirmCourseReset: () => void;
+  onConfirmAllReset: () => void;
+};
+
+function Home({ progress, onOpen, resetView, resetCourseId, resetMessage, onOpenReset, onCancelReset, onChooseCourseReset, onChooseAllReset, onConfirmCourseReset, onConfirmAllReset }: HomeProps) {
   const completed = Object.values(progress.lessons).filter((item) => item?.completed).length;
   return (
     <main className="site-shell">
       <nav className="topbar" aria-label="主导航">
         <a className="brand" href="#top" aria-label="数感实验室首页"><span>∑</span> 数感实验室</a>
         <div className="nav-links"><a href="#courses">课程</a><a href="#method">学习方法</a></div>
-        <div className="progress-actions"><div className="progress-pill">已完成 {completed}/2 课</div><button className="reset-link" onClick={onReset} aria-label="重置课程进度">重置进度</button></div>
+        <div className="progress-actions"><div className="progress-pill">已完成 {completed}/{courses.length} 课</div><button className="reset-link" onClick={onOpenReset} aria-label="重置课程进度">重置进度</button></div>
       </nav>
 
       <section className="hero" id="top">
@@ -112,7 +150,7 @@ function Home({ progress, onOpen, onReset, resetDone, resetOpen, onCancelReset, 
       </section>
 
       <section className="courses-section" id="courses">
-        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到位值</h2></div><div className="section-side"><p>两节完整互动课，建立整个数学世界的地基。</p><button className="mobile-reset" onClick={onReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
+        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到正负数</h2></div><div className="section-side"><p>五节完整互动课，从数字符号出发，建立规律与数轴思维。</p><button className="mobile-reset" onClick={onOpenReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
         <div className="course-grid">
           {courses.map((course) => {
             const saved = progress.lessons[course.id];
@@ -130,10 +168,11 @@ function Home({ progress, onOpen, onReset, resetDone, resetOpen, onCancelReset, 
         </div>
       </section>
 
-      <section className="coming-soon"><p className="kicker">接下来</p><div className="chapter-row"><span>03</span><b>数列与规律</b><small>即将开放</small></div><div className="chapter-row"><span>04</span><b>数列与图形</b><small>即将开放</small></div><div className="chapter-row"><span>05</span><b>正数与负数</b><small>即将开放</small></div></section>
       <footer><span className="brand"><span>∑</span> 数感实验室</span><p>每一个数字，都值得亲手发现。</p></footer>
-      {resetDone && <div className="reset-toast" role="status">课程进度已重置</div>}
-      {resetOpen && <div className="dialog-backdrop" onMouseDown={onCancelReset}><div className="reset-dialog" role="dialog" aria-modal="true" aria-labelledby="reset-dialog-title" onMouseDown={(event) => event.stopPropagation()}><p className="kicker">重新开始</p><h2 id="reset-dialog-title">重置全部课程进度？</h2><p>“数字符号”和“位值”的场景进度、答题次数与结课记录都会清空。此操作无法撤销。</p><div className="dialog-actions"><button className="secondary" onClick={onCancelReset}>取消</button><button className="danger" onClick={onConfirmReset}>确认重置</button></div></div></div>}
+      {resetMessage && <div className="reset-toast" role="status">{resetMessage}</div>}
+      {resetView === "manager" && !resetCourseId && <div className="dialog-backdrop" onMouseDown={onCancelReset}><div className="reset-dialog reset-manager" role="dialog" aria-modal="true" aria-labelledby="reset-manager-title" onMouseDown={(event) => event.stopPropagation()}><p className="kicker">重新开始</p><h2 id="reset-manager-title">管理课程进度</h2><p>选择一节课程单独重置。其他课程的学习记录不会改变。</p><div className="reset-course-list">{courses.map((item) => { const saved = progress.lessons[item.id]; const percent = saved?.completed ? 100 : Math.round(((saved?.sceneIndex ?? 0) / item.scenes.length) * 100); return <div key={item.id}><span><b>{item.number} · {item.title}</b><small>{saved ? `${percent}%` : "尚未开始"}</small></span><button onClick={() => onChooseCourseReset(item.id)} aria-label={`重置${item.title}`} disabled={!saved}>重置本课</button></div>; })}</div><div className="reset-all-zone"><div><b>重置全部课程</b><small>清空 5 节课程的所有记录</small></div><button className="danger-outline" onClick={onChooseAllReset}>重置全部课程</button></div><div className="dialog-actions"><button className="secondary" onClick={onCancelReset}>关闭</button></div></div></div>}
+      {resetCourseId && <div className="dialog-backdrop" onMouseDown={onCancelReset}><div className="reset-dialog" role="dialog" aria-modal="true" aria-labelledby="reset-course-title" onMouseDown={(event) => event.stopPropagation()}><p className="kicker">单课重置</p><h2 id="reset-course-title">重置《{courses.find((item) => item.id === resetCourseId)?.title}》？</h2><p>只清空本课的场景、答题和结课记录，其他课程不受影响。</p><div className="dialog-actions"><button className="secondary" onClick={onCancelReset}>取消</button><button className="danger" onClick={onConfirmCourseReset}>确认重置本课</button></div></div></div>}
+      {resetView === "confirm-all" && <div className="dialog-backdrop" onMouseDown={onCancelReset}><div className="reset-dialog" role="dialog" aria-modal="true" aria-labelledby="reset-all-title" onMouseDown={(event) => event.stopPropagation()}><p className="kicker">危险操作</p><h2 id="reset-all-title">重置全部课程进度？</h2><p>5 节课程的场景进度、答题次数与结课记录都会清空。此操作无法撤销。</p><div className="dialog-actions"><button className="secondary" onClick={onCancelReset}>取消</button><button className="danger" onClick={onConfirmAllReset}>确认重置全部</button></div></div></div>}
     </main>
   );
 }
@@ -163,6 +202,9 @@ function Scene({ scene, onComplete }: { scene: LessonScene; onComplete: (correct
   if (scene.kind === "story") return <Story onComplete={onComplete} />;
   if (scene.kind === "match") return <Match scene={scene} onComplete={onComplete} />;
   if (scene.kind === "place") return <Place scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "sequence") return <SequenceScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "visual-pattern") return <VisualPatternScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "number-line") return <NumberLineScene scene={scene} onComplete={onComplete} />;
   return <Build scene={scene} onComplete={onComplete} />;
 }
 

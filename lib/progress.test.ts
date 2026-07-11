@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { clearProgress, loadProgress, saveProgress } from "./progress";
+import { clearCourseProgress, clearProgress, loadProgress, saveProgress } from "./progress";
 
 describe("lesson progress", () => {
   beforeEach(() => localStorage.clear());
@@ -35,5 +35,18 @@ describe("lesson progress", () => {
     });
     expect(() => clearProgress()).not.toThrow();
     remove.mockRestore();
+  });
+
+  it("clears one course and preserves every other lesson", () => {
+    const progress = {
+      lessons: {
+        symbols: { sceneIndex: 4, completed: true, attempts: 3, correct: 3 },
+        "place-value": { sceneIndex: 2, completed: false, attempts: 1, correct: 1 },
+      },
+    };
+    const next = clearCourseProgress(progress, "symbols");
+    expect(next.lessons.symbols).toBeUndefined();
+    expect(next.lessons["place-value"]).toEqual(progress.lessons["place-value"]);
+    expect(loadProgress()).toEqual(next);
   });
 });

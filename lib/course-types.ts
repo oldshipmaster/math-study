@@ -7,7 +7,7 @@ export type Question = {
 
 export type LessonScene = {
   id: string;
-  kind: "count" | "story" | "match" | "place" | "build" | "quiz";
+  kind: "count" | "story" | "match" | "place" | "build" | "sequence" | "visual-pattern" | "number-line" | "quiz";
   eyebrow: string;
   title: string;
   body: string;
@@ -16,7 +16,7 @@ export type LessonScene = {
 };
 
 export type Course = {
-  id: "symbols" | "place-value";
+  id: "symbols" | "place-value" | "sequences" | "shape-patterns" | "signed-numbers";
   number: string;
   title: string;
   summary: string;
