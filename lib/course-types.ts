@@ -47,6 +47,15 @@ export type LessonProgress = {
   completed: boolean;
   attempts: number;
   correct: number;
+  challenge?: ChallengeProgress;
+};
+
+export type ChallengeProgress = {
+  completedIds: string[];
+  requiredIds: string[];
+  correct: number;
+  attempts: number;
+  reasons: Record<string,string>;
 };
 
 export type ProgressState = {
