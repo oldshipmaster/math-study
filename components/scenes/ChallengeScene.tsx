@@ -7,7 +7,7 @@ const labels={application:"情境应用",reverse:"反向推理","error-correctio
 const empty:ChallengeProgress={completedIds:[],requiredIds:[],correct:0,attempts:0,reasons:{}};
 
 export function ChallengeScene({scene,saved,onProgress,onComplete}:{scene:LessonScene;saved?:ChallengeProgress;onProgress:(progress:ChallengeProgress)=>void;onComplete:(correct:number,attempts:number)=>void}){
-  const questions=scene.challenges??[];
+  const questions=useMemo(()=>scene.challenges??[],[scene.challenges]);
   const initial={...empty,...saved};
   const requiredIds=initial.requiredIds.length?initial.requiredIds:selectRequiredChallenges(questions).map(question=>question.id);
   const questionMap=useMemo(()=>new Map(questions.map(question=>[question.id,question])),[questions]);
