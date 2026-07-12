@@ -1,6 +1,7 @@
 import type { Course } from "./course-types";
+import {buildChallengeBank} from "./challenge-bank";
 
-export const courses: Course[] = [
+const lessonCourses: Course[] = [
   {
     id: "symbols",
     number: "01",
@@ -586,3 +587,8 @@ export const courses: Course[] = [
     {id:"parallelogram-cut",kind:"measurement",eyebrow:"垂线切角",title:"从顶点向底边作垂线",body:"切下一个直角三角形。",instruction:"选择切线方向。"},{id:"parallelogram-slide",kind:"measurement",eyebrow:"平移拼接",title:"把三角形移到另一侧",body:"图形变成长方形，面积不变。",instruction:"选择新图形。"},{id:"parallelogram-base",kind:"measurement",eyebrow:"保留底边",title:"长方形的长等于原底",body:"切拼没有改变底。",instruction:"选择对应关系。"},{id:"parallelogram-height",kind:"measurement",eyebrow:"垂直高度",title:"长方形的宽等于原高",body:"斜边长度不能代替高。",instruction:"选择正确长度。"},{id:"parallelogram-formula",kind:"measurement",eyebrow:"面积公式",title:"底 × 高",body:"底8cm、高5cm，面积40cm²。",instruction:"选择结果。"},{id:"parallelogram-area-quiz",kind:"quiz",eyebrow:"终局测验",title:"平行四边形面积师认证",body:"完成三题。",questions:[{prompt:"平行四边形面积公式？",options:["底×高","底×斜边","2(底+高)"],answer:0,explanation:"切拼成长方形后是底×高。"},{prompt:"底8高5的面积？",options:["13","20","40"],answer:2,explanation:"8×5=40。"},{prompt:"切拼后面积？",options:["变大","变小","不变"],answer:2,explanation:"只移动图形部分，没有增减面积。"}]},
   ]},
 ];
+
+export const courses:Course[]=lessonCourses.map(course=>({
+  ...course,
+  scenes:[...course.scenes,{id:`${course.id}-challenge`,kind:"challenge",eyebrow:"创新挑战营",title:`${course.title} · 20 道创新问题`,body:"从情境、反向、纠错、规律、开放与启发六个方向继续探索。",instruction:"完成本次 10 道必做挑战。",challenges:buildChallengeBank(course)}],
+}));

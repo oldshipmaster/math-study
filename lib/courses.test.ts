@@ -86,15 +86,18 @@ describe("course catalog", () => {
       "parallelogram-area",
     ]);
     expect(courses).toHaveLength(80);
-    expect(courses[0].scenes).toHaveLength(5);
-    expect(courses.slice(1).every((course) => course.scenes.length === 6)).toBe(true);
+    expect(courses[0].scenes).toHaveLength(6);
+    expect(courses.slice(1).every((course) => course.scenes.length === 7)).toBe(true);
   });
 
   it("ends each lesson with a three-question quiz", () => {
     for (const course of courses) {
-      const last = course.scenes.at(-1);
-      expect(last?.kind).toBe("quiz");
-      expect(last?.questions).toHaveLength(3);
+      const quiz = course.scenes.at(-2);
+      const challenge = course.scenes.at(-1);
+      expect(quiz?.kind).toBe("quiz");
+      expect(quiz?.questions).toHaveLength(3);
+      expect(challenge?.kind).toBe("challenge");
+      expect(challenge?.challenges).toHaveLength(20);
     }
   });
 

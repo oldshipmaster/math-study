@@ -5,14 +5,30 @@ export type Question = {
   explanation: string;
 };
 
+export type ChallengeCategory = "application" | "reverse" | "error-correction" | "pattern" | "open" | "inquiry";
+
+export type ChallengeQuestion = {
+  id: string;
+  category: ChallengeCategory;
+  mode: "choice" | "reasoning";
+  prompt: string;
+  options: string[];
+  answer: number;
+  explanation: string;
+  hint: string;
+  reference: string;
+  knowledgeTag: string;
+};
+
 export type LessonScene = {
   id: string;
-  kind: "count" | "story" | "match" | "place" | "build" | "sequence" | "visual-pattern" | "number-line" | "compare" | "order" | "estimate" | "rounding" | "multiples" | "prime" | "factor-tree" | "power" | "fraction" | "fraction-operation" | "decimal" | "ratio" | "addition" | "subtraction" | "multiplication" | "division" | "operation-order" | "calculator" | "measurement" | "quiz";
+  kind: "count" | "story" | "match" | "place" | "build" | "sequence" | "visual-pattern" | "number-line" | "compare" | "order" | "estimate" | "rounding" | "multiples" | "prime" | "factor-tree" | "power" | "fraction" | "fraction-operation" | "decimal" | "ratio" | "addition" | "subtraction" | "multiplication" | "division" | "operation-order" | "calculator" | "measurement" | "quiz" | "challenge";
   eyebrow: string;
   title: string;
   body: string;
   instruction?: string;
   questions?: Question[];
+  challenges?: ChallengeQuestion[];
 };
 
 export type Course = {
