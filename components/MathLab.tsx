@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { courses } from "../lib/courses";
-import type { Course, LessonScene, ProgressState } from "../lib/course-types";
+import type { ChallengeProgress, Course, LessonScene, ProgressState } from "../lib/course-types";
 import { clearCourseProgress, clearProgress, loadProgress, saveProgress } from "../lib/progress";
 import { NumberLineScene } from "./scenes/NumberLineScene";
 import { SequenceScene } from "./scenes/SequenceScene";
@@ -24,6 +24,7 @@ import { DivisionScene } from "./scenes/DivisionScene";
 import { OperationOrderScene } from "./scenes/OperationOrderScene";
 import { CalculatorScene } from "./scenes/CalculatorScene";
 import { MeasurementScene } from "./scenes/MeasurementScene";
+import { ChallengeScene } from "./scenes/ChallengeScene";
 import { PowerScene } from "./scenes/PowerScene";
 import { PrimeScene } from "./scenes/PrimeScene";
 
@@ -51,8 +52,10 @@ export function MathLab() {
 
   function openCourse(id: Course["id"]) {
     const saved = progress.lessons[id];
+    const targetCourse = courses.find((item) => item.id === id)!;
+    const challengeDone = saved?.challenge?.completedIds.length ?? 0;
     setCourseId(id);
-    setSceneIndex(saved?.completed ? 0 : Math.min(saved?.sceneIndex ?? 0, courses.find((item) => item.id === id)!.scenes.length - 1));
+    setSceneIndex(saved?.completed && challengeDone < 20 ? targetCourse.scenes.length - 1 : saved?.completed ? 0 : Math.min(saved?.sceneIndex ?? 0, targetCourse.scenes.length - 1));
     setView("lesson");
   }
 
@@ -66,11 +69,21 @@ export function MathLab() {
           completed,
           correct: (current?.correct ?? 0) + correct,
           attempts: (current?.attempts ?? 0) + attempts,
+          challenge: current?.challenge,
         },
       },
     };
     setProgress(next);
     saveProgress(next);
+  }
+
+  function recordChallenge(challenge:ChallengeProgress){
+    setProgress(currentProgress=>{
+      const current=currentProgress.lessons[courseId];
+      const next:ProgressState={lessons:{...currentProgress.lessons,[courseId]:{sceneIndex:current?.sceneIndex??sceneIndex,completed:current?.completed??false,correct:current?.correct??0,attempts:current?.attempts??0,challenge}}};
+      saveProgress(next);
+      return next;
+    });
   }
 
   if (!ready) return <main className="loading">正在打开数学实验室…</main>;
@@ -111,6 +124,8 @@ export function MathLab() {
       course={course}
       scene={scene}
       sceneIndex={sceneIndex}
+      challengeProgress={progress.lessons[courseId]?.challenge}
+      onChallengeProgress={recordChallenge}
       onExit={() => setView("home")}
       onPrevious={() => setSceneIndex((index) => Math.max(0, index - 1))}
       onNext={(correct, attempts) => {
@@ -150,7 +165,7 @@ function Home({ progress, onOpen, resetView, resetCourseId, resetMessage, onOpen
         <div className="hero-copy">
           <p className="kicker">为 7–12 岁好奇心设计</p>
           <h1>把数学，变成<br /><em>可以触摸</em>的想法</h1>
-          <p className="hero-text">不只是看动画。亲手点击、拖动、试验，让每一个抽象概念在眼前发生。</p>
+          <p className="hero-text">不只是看动画。亲手点击、拖动、试验，再用 1600 道创新问题把每一个抽象概念变成自己的思考工具。</p>
           <div className="hero-actions">
             <button className="primary" onClick={() => onOpen("symbols")} aria-label="开始第 1 课数字符号">开始第 1 课 <span>→</span></button>
             <a className="text-link" href="#courses">查看课程地图</a>
@@ -168,11 +183,11 @@ function Home({ progress, onOpen, resetView, resetCourseId, resetMessage, onOpen
 
       <section className="method-strip" id="method">
         <p>我们的学习循环</p>
-        <ol><li><b>01</b> 看见概念</li><li><b>02</b> 亲手试验</li><li><b>03</b> 回答挑战</li><li><b>04</b> 带走知识</li></ol>
+        <ol><li><b>01</b> 看见概念</li><li><b>02</b> 亲手试验</li><li><b>03</b> 创新挑战</li><li><b>04</b> 带走知识</li></ol>
       </section>
 
       <section className="courses-section" id="courses">
-        <div className="section-heading"><div><p className="kicker">数与数感 · 第一章</p><h2>从符号到图形面积</h2></div><div className="section-side"><p>八十节完整互动课，从数字符号出发，探索周长公式、面积估算与图形切拼。</p><button className="mobile-reset" onClick={onOpenReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
+        <div className="section-heading"><div><p className="kicker">80 课 · 1600 道创新问题</p><h2>从符号到图形面积</h2></div><div className="section-side"><p>每课新增 20 道创新问题，从情境、反向、纠错、规律、开放和启发六个方向真正学会思考。</p><button className="mobile-reset" onClick={onOpenReset} aria-label="移动端重置课程进度">重置课程进度</button></div></div>
         <div className="course-grid">
           {courses.map((course) => {
             const saved = progress.lessons[course.id];
@@ -199,7 +214,7 @@ function Home({ progress, onOpen, resetView, resetCourseId, resetMessage, onOpen
   );
 }
 
-function Lesson({ course, scene, sceneIndex, onExit, onPrevious, onNext }: { course: Course; scene: LessonScene; sceneIndex: number; onExit: () => void; onPrevious: () => void; onNext: (correct: number, attempts: number) => void }) {
+function Lesson({ course, scene, sceneIndex, challengeProgress, onChallengeProgress, onExit, onPrevious, onNext }: { course: Course; scene: LessonScene; sceneIndex: number; challengeProgress?:ChallengeProgress; onChallengeProgress:(progress:ChallengeProgress)=>void; onExit: () => void; onPrevious: () => void; onNext: (correct: number, attempts: number) => void }) {
   const [complete, setComplete] = useState(false);
   const [result, setResult] = useState({ correct: 0, attempts: 0 });
   return (
@@ -207,14 +222,14 @@ function Lesson({ course, scene, sceneIndex, onExit, onPrevious, onNext }: { cou
       <header className="lesson-header"><button className="icon-button" onClick={onExit} aria-label="课程目录">←</button><div><p>第 {course.number} 课</p><strong>{course.title}</strong></div><div className="lesson-progress"><span>{sceneIndex + 1} / {course.scenes.length}</span><div>{course.scenes.map((item, index) => <i className={index <= sceneIndex ? "active" : ""} key={item.id} />)}</div></div></header>
       <div className="lesson-layout">
         <aside className="lesson-aside"><p className="kicker">本课路线</p>{course.scenes.map((item, index) => <div className={`scene-link ${index === sceneIndex ? "current" : ""} ${index < sceneIndex ? "done" : ""}`} key={item.id}><span>{index < sceneIndex ? "✓" : index + 1}</span><p>{item.eyebrow}<b>{item.title}</b></p></div>)}</aside>
-        <section className="stage-wrap"><div className="stage-title"><p className="kicker">{scene.eyebrow}</p><h1>{scene.title}</h1><p>{scene.body}</p></div><Scene scene={scene} onComplete={(correct, attempts) => { setComplete(true); setResult({ correct, attempts }); }} /></section>
+        <section className="stage-wrap"><div className="stage-title"><p className="kicker">{scene.eyebrow}</p><h1>{scene.title}</h1><p>{scene.body}</p></div><Scene scene={scene} challengeProgress={challengeProgress} onChallengeProgress={onChallengeProgress} onComplete={(correct, attempts) => { setComplete(true); setResult({ correct, attempts }); }} /></section>
       </div>
       <footer className="lesson-controls"><button className="secondary" onClick={onPrevious} disabled={sceneIndex === 0}>← 上一步</button><p aria-live="polite">{complete ? "很好，实验完成！" : scene.instruction}</p><button className="primary" onClick={() => onNext(result.correct, result.attempts)} disabled={!complete}>继续 <span>→</span></button></footer>
     </main>
   );
 }
 
-function Scene({ scene, onComplete }: { scene: LessonScene; onComplete: (correct: number, attempts: number) => void }) {
+function Scene({ scene, challengeProgress, onChallengeProgress, onComplete }: { scene: LessonScene; challengeProgress?:ChallengeProgress; onChallengeProgress:(progress:ChallengeProgress)=>void; onComplete: (correct: number, attempts: number) => void }) {
   if (scene.kind === "quiz") return <Quiz scene={scene} onComplete={onComplete} />;
   if (scene.kind === "count") return <Count onComplete={onComplete} />;
   if (scene.kind === "story") return <Story onComplete={onComplete} />;
@@ -242,6 +257,7 @@ function Scene({ scene, onComplete }: { scene: LessonScene; onComplete: (correct
   if (scene.kind === "operation-order") return <OperationOrderScene scene={scene} onComplete={onComplete} />;
   if (scene.kind === "calculator") return <CalculatorScene scene={scene} onComplete={onComplete} />;
   if (scene.kind === "measurement") return <MeasurementScene scene={scene} onComplete={onComplete} />;
+  if (scene.kind === "challenge") return <ChallengeScene scene={scene} saved={challengeProgress} onProgress={onChallengeProgress} onComplete={onComplete} />;
   return <Build scene={scene} onComplete={onComplete} />;
 }
 

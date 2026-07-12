@@ -147,6 +147,14 @@ describe("MathLab", () => {
     expect(screen.getByRole("button", { name: /继续/ })).toBeEnabled();
   });
 
+  it("opens a completed legacy course at its new innovation challenge",()=>{
+    localStorage.setItem("math-lab-progress",JSON.stringify({lessons:{symbols:{sceneIndex:4,completed:true,attempts:3,correct:3}}}));
+    render(<MathLab/>);
+    fireEvent.click(screen.getByRole("button",{name:"学习数字符号"}));
+    expect(screen.getByRole("heading",{name:"数字符号 · 20 道创新问题"})).toBeInTheDocument();
+    expect(screen.getByText("问题 1 / 10")).toBeInTheDocument();
+  });
+
   it("resets one selected course without changing the others", () => {
     localStorage.setItem("math-lab-progress", JSON.stringify({
       lessons: {
